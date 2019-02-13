@@ -2,8 +2,44 @@
 import React ,{Component} from "react";
 
 import {Link} from "react-router-dom";
+import EmpPrev from "./empPrev";
+
+
+const token = localStorage.getItem('auth-token');
+
+const requestInfo = {
+
+    method: 'GET',
+
+    headers: new Headers({
+
+        'Authorization': token,
+    })
+};
+
+
 
 export default class EmpList extends Component {
+
+
+    constructor(){
+        super();
+        this.state = {data:[]};
+    };
+
+    componentWillMount() {
+
+        fetch('http://187.87.109.66:3005/auth/employee', requestInfo)
+            .then(res => res.json())
+            .then( data => {
+                this.setState({data:data});
+
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
+    }
+
     render() {
         return (
 
@@ -24,18 +60,23 @@ export default class EmpList extends Component {
 
 
             <div className="row">
-                <div className="col-md-10">
+                <div className="col-md-12">
                     <div className="bgc-white bd bdrs-3 p-20 mB-20">
                         <div className="card ">
                             <div className="card-body">
 
                                 <div className="row">
-                                    <div className="input-group input-group-rounded col-md-8 mb-3 ">
-                                        <input type="text" placeholder="Modelo" name="Search" className="form-control"/>
-                                        <span className="input-group-btn"><button
-                                            className="btn btn-primary btn-group-right" type="submit"><i
-                                            className="ti-search"/></button></span>
-                                    </div>
+                                    <form className="col-md-4 mb-6 "  >
+                                        <div className="input-group input-group-rounded col-md-16 mb-3 ">
+
+                                            <input type="text" placeholder="Nome" name="search"
+                                                   className="form-control" ref={input => this.cliente = input}/>
+
+                                            <button className="btn btn-primary btn-group-right" type="submit">
+                                                <i className="ti-search"/></button>
+
+                                        </div>
+                                    </form>
                                     <div className="text-right ">
                                         <Link className="btn cur-p btn-outline-success" to="/EmpForm">Cadastrar</Link>
 
@@ -59,27 +100,13 @@ export default class EmpList extends Component {
                                         </th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    <tr>
 
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                        <td>
-                                            <div className="peer">
-                                                <a href="employeeForm.html"
-                                                   className="td-n c-deep-purple-500 cH-blue-500 fsz-md p-5">
-                                                    <i className="ti-pencil">
-                                                    </i>
-                                                </a>
+                                    { this.state.data.map(data =>
+                                        <EmpPrev key={data.EmpCod}{...data}/>
+                                    )}
 
 
-                                            </div>
-                                        </td>
-                                    </tr>
 
-
-                                    </tbody>
                                 </table>
                             </div>
                         </div>
