@@ -1,9 +1,9 @@
 // Importando o React
 import React ,{Component} from "react";
 
+import ApiProvider from '../../../gearUtils/util'
 
-
-import  CusPrev from "./cusPrev";
+import  VhcPrev from "./vhcPrev";
 import {Link} from "react-router-dom";
 
 
@@ -19,7 +19,7 @@ const requestInfo = {
     })
 };
 
-    export default class CusList extends Component {
+export default class VehiModelList extends Component {
 
     constructor(){
         super();
@@ -28,7 +28,7 @@ const requestInfo = {
 
     componentWillMount() {
 
-        fetch('http://187.87.109.66:3005/auth/customer', requestInfo)
+        fetch( ApiProvider.Add+'/auth/customer', requestInfo)
             .then(res => res.json())
             .then( data => {
                 this.setState({data:data});
@@ -47,17 +47,17 @@ const requestInfo = {
 
                 <div className="row page-titles">
                     <div className="col-md-5 align-self-center">
-                        <h3 className="text-primary">Clientes</h3></div>
+                        <h3 className="text-primary">Modelos</h3></div>
                     <div className="col-md-7 align-self-center">
                         <ol className="breadcrumb">
                             <li className="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                            <li className="breadcrumb-item active">Clientes</li>
+                            <li className="breadcrumb-item active">Modelos</li>
                         </ol>
                     </div>
                 </div>
                 <div className="container-fluid">
                     <div className="row">
-                        <div className="col-md-10">
+                        <div className="col-md-12">
                             <div className="bgc-white bd bdrs-3 p-20 mB-20">
                                 <div className="card ">
                                     <div className="card-body">
@@ -78,33 +78,37 @@ const requestInfo = {
                                             </form>
 
                                             <div className="col-md-5 mb-6 ">
-                                                <Link className="btn cur-p btn-outline-success" to="/cusForm">
+                                                <Link className="btn cur-p btn-outline-success" to={"/vehiModForm"}>
                                                     Cadastrar</Link>
 
                                             </div>
                                         </div>
-                                        <table className="table table-striped">
-                                            <thead>
-                                            <tr>
+                                        <div className="table-responsive m-t-40">
+                                            <table id="example23"
+                                                   className="display nowrap table table-hover table-striped "
+                                                   cellSpacing="0" width="100%">
+                                                <thead>
+                                                <tr>
 
-                                                <th scope="col">
-                                                    Nome
-                                                </th>
-                                                <th scope="col">
-                                                    Telefone
-                                                </th>
-                                                <th scope="col">
-                                                    E-mail
-                                                </th>
-                                                <th scope="col">
-                                                    Editar/Veiculos
-                                                </th>
-                                            </tr>
-                                            </thead>
-                                            { this.state.data.map(data =>
-                                                <CusPrev key={data.CusCod}{...data}/>
-                                            )}
-                                        </table>
+                                                    <th scope="col">
+                                                        Nome
+                                                    </th>
+                                                    <th scope="col">
+                                                        Telefone
+                                                    </th>
+                                                    <th scope="col">
+                                                        E-mail
+                                                    </th>
+                                                    <th scope="col">
+                                                        Editar/Veiculos
+                                                    </th>
+                                                </tr>
+                                                </thead>
+                                                { this.state.data.map(data =>
+                                                    <VhcPrev key={data._id}{...data}/>
+                                                )}
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

@@ -1,11 +1,7 @@
-// Importando o React
-import React from "react";
-// Importando os components necessários da lib react-materialize
-//import { Row, Col, Card, Input, Button } from 'react-materialize';
-// Importando o componenet UserProfile
-//import UserProfile from '../user_profile/user_profile'
+import React, {Component} from "react";
+import {Link} from "react-router-dom";
 
-//TODO: change name to commonService
+
 
 const ServForm = () => (
     <div className="page-wrapper">
@@ -37,7 +33,7 @@ const ServForm = () => (
 
                                             <label className="fw-500" htmlFor="validationCustom01">Descrição</label>
                                             <input type="text" className="form-control text-center"
-    id="validationCustom01" required/>
+                                                   id="validationCustom01" required/>
                                         </div>
                                     </div>
 
@@ -62,8 +58,8 @@ const ServForm = () => (
 
 
                             <div className="text-right">
-                                <a className="btn cur-p btn-info" href="employeeList.html">Cancelar</a>
-
+                                <Link className="btn cur-p btn-info" to={'/ServInProList'}>Cancelar</Link>
+                                <a>     </a>
 
                                 <button className="btn cur-p btn-success" type="submit">Salvar</button>
                             </div>
@@ -76,8 +72,8 @@ const ServForm = () => (
             </div>
 
 
-</div>
         </div>
+    </div>
 );
 
 export default ServForm;

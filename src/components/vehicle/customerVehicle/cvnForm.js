@@ -140,7 +140,7 @@ export default class VehiCusForm extends Component {
                             </div>
                             <div className="text-right col-md-12 mb-3">
 
-                                <a className="btn cur-p btn-info m-b-10 m-l-5" href="employeeList.html">Cancelar</a>
+                                <Link className="btn cur-p btn-info m-b-10 m-l-5" to={'/vehiModelList'}>Cancelar</Link>
 
 
 

@@ -1,9 +1,9 @@
-// Importando o React
-import React from "react";
-// Importando os components necessários da lib react-materialize
-//import { Row, Col, Card, Input, Button } from 'react-materialize';
-// Importando o componenet UserProfile
-//import UserProfile from '../user_profile/user_profile'
+import React ,{Component} from "react";
+
+import ApiProvider from './../../../gearUtils/util'
+
+import {Link} from "react-router-dom";
+
 
 const VehiModForm = () => (
     <div className="page-wrapper">
@@ -38,7 +38,7 @@ const VehiModForm = () => (
 
                                             <label className="fw-500" htmlFor="validationCustom01">Fabricante</label>
                                             <input type="text" className="form-control" id="validationCustom01"
-                                                   placeholder="BMW" required></input>
+                                                   placeholder="BMW" required/>
                                         </div>
 
 
@@ -46,7 +46,7 @@ const VehiModForm = () => (
 
                                             <label className="fw-500" htmlFor="validationCustom02">Modelo</label>
                                             <input type="number" className="form-control" id="validationCustom02"
-                                                   placeholder="320i Sport" required></input>
+                                                   placeholder="320i Sport" required/>
                                         </div>
                                     </div>
                                     <div className="row">
@@ -56,7 +56,7 @@ const VehiModForm = () => (
                                                 <div className="input-group">
 
                                                     <input type="date" className="form-control bdc-grey-200 start-date"
-                                                           data-provide="datepicker"></input>
+                                                           data-provide="datepicker"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -66,7 +66,7 @@ const VehiModForm = () => (
                                                 <div className="input-group">
 
                                                     <input type="date" className="form-control bdc-grey-200 start-date"
-                                                           data-provide="datepicker"></input>
+                                                           data-provide="datepicker"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -75,7 +75,7 @@ const VehiModForm = () => (
                                             <label className="fw-500" htmlFor="validationCustom02">Cilindrada
                                                 (cm³)</label>
                                             <input type="text" className="form-control" id="validationCustom14"
-                                                   placeholder="Cm³" required></input>
+                                                   placeholder="Cm³" required/>
                                         </div>
                                     </div>
                                     <div className="row">
@@ -105,26 +105,30 @@ const VehiModForm = () => (
 
                                             <label className="fw-500" htmlFor="validationCustom02">Potência</label>
                                             <input type="number" className="form-control" id="validationCustom09"
-                                                   placeholder="CV" required></input>
+                                                   placeholder="CV" required/>
                                         </div>
 
-                                        <div className="col-md-6 mb-3">
-                                        <h4 className="card-title">Imagem</h4>
+                                        <div className="row">
+                                            <div className="col-10">
 
-                                        <form action="#" className="dropzone">
-                                            <div className="fallback">
-                                                <input name="file" type="file" multiple/>
+                                                <h4 className="card-title">Imagem</h4>
+
+                                                <form action="#" className="dropzone">
+                                                    <div className="fallback">
+                                                        <input name="file" type="file" multiple/>
+                                                    </div>
+                                                </form>
+
                                             </div>
-                                        </form>
                                         </div>
 
 
-                                </div>
+                                    </div>
                                 </div>
                             </div>
 
                             <div className="text-right">
-                                <a className="btn cur-p btn-info m-b-10 m-l-5" href="employeeList.html">Cancelar</a>
+                                <Link className="btn cur-p btn-info m-b-10 m-l-5" to={"/vehiModelList"}>Cancelar</Link>
 
 
                                 <button className="btn cur-p btn-success m-b-10 m-l-5" type="submit">Salvar</button>
@@ -139,7 +143,7 @@ const VehiModForm = () => (
 
 
         </div>
-        </div>
+    </div>
 );
 
 export default VehiModForm;

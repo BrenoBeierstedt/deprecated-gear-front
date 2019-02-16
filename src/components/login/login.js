@@ -1,11 +1,7 @@
 import React, {Component} from "react";
-// Importando os components necessários da lib react-materialize
-//import { Row, Col, Card, Input, Button } from 'react-materialize';
-// Importando o componenet UserProfile
-//import UserProfile from '../user_profile/user_profile'
-import  { Route, BrowserRouter, Link} from 'react-router-dom';
-
 import history from "../history"
+
+import ApiProvider from './../../gearUtils/util'
 
 
 const getUrlParameter = (name) => {
@@ -37,7 +33,7 @@ export default class Login extends Component {
             })
         };
 
-        fetch('http://187.87.109.66:3005/auth/login/', requestInfo)
+        fetch(ApiProvider.Add+'/auth/login/', requestInfo)
             .then(res => {
                 if(res.ok){
                     return res.text();

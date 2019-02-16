@@ -1,10 +1,7 @@
 // Importantando o React
 import React from "react";
 // Importando os components necessárias da lib react-materialize
-//import { Navbar, NavItem, Row} from 'react-materialize';
-// Importando o Component NavLink da nossa lib de rotas
-//import { NavLink } from 'react-router-dom'
-
+import { Link } from 'react-router-dom'
 
 
 
@@ -13,13 +10,13 @@ const Header = () => (
         <nav className="navbar top-navbar navbar-expand-md navbar-light">
 
             <div className="navbar-header">
-                <a className="navbar-brand" href="/">
+                <Link  className="navbar-brand" to={"/CusList"}>
 
                     <b><img src="images/logo.png" alt="homepage" className="dark-logo"/></b>
 
 
                     <span><img src="images/logo-text.png" alt="homepage" className="dark-logo"/></span>
-                </a>
+                </Link>
             </div>
 
             <div className="navbar-collapse">
@@ -27,9 +24,9 @@ const Header = () => (
                 <ul className="navbar-nav mr-auto mt-md-0">
 
                     <li className="nav-item"><a className="nav-link nav-toggler hidden-md-up text-muted  "
-                                                href="javascript:void(0)"><i className="mdi mdi-menu"></i></a></li>
+                                                href="javascript:void(0)"><i className="mdi mdi-menu"/></a></li>
                     <li className="nav-item m-l-10"><a className="nav-link sidebartoggler hidden-sm-down text-muted  "
-                                                       href="javascript:void(0)"><i className="ti-menu"></i></a></li>
+                                                       href="javascript:void(0)"><i className="ti-menu"/></a></li>
 
 
 
@@ -40,17 +37,17 @@ const Header = () => (
 
                     <li className="nav-item hidden-sm-down search-box"><a
                         className="nav-link hidden-sm-down text-muted  " href="javascript:void(0)"><i
-                        className="ti-search"></i></a>
+    className="ti-search"/></a>
                         <form className="app-search">
-                            <input type="text" className="form-control" placeholder="Search here"></input>
-                            <a className ="srh-btn"><i className="ti-close"></i></a>
+                            <input type="text" className="form-control" placeholder="Search here"/>
+                            <a className ="srh-btn"><i className="ti-close"/></a>
                         </form>
                     </li>
 
                     <li className="nav-item dropdown">
                         <a className="nav-link dropdown-toggle text-muted text-muted  " href="#" data-toggle="dropdown"
-                           aria-haspopup="true" aria-expanded="false"> <i className="fa fa-bell"></i>
-                            <div className="notify"><span className="heartbit"></span> <span className="point"></span>
+                           aria-haspopup="true" aria-expanded="false"> <i className="fa fa-bell"/>
+                            <div className="notify"><span className="heartbit"/> <span className="point"/>
                             </div>
                         </a>
                         <div className="dropdown-menu dropdown-menu-right mailbox animated zoomIn">
@@ -63,7 +60,7 @@ const Header = () => (
 
                                         <a href="#">
                                             <div className="btn btn-danger btn-circle m-r-10"><i
-                                                className="fa fa-link"></i></div>
+    className="fa fa-link"/></div>
                                             <div className="mail-contnet">
                                                 <h5>This is title</h5> <span className="mail-desc">Just see the my new admin!</span>
                                                 <span className="time">9:30 AM</span>
@@ -72,7 +69,7 @@ const Header = () => (
 
                                         <a href="#">
                                             <div className="btn btn-success btn-circle m-r-10"><i
-                                                className="ti-calendar"></i></div>
+    className="ti-calendar"/></div>
                                             <div className="mail-contnet">
                                                 <h5>This is another title</h5> <span className="mail-desc">Just a reminder that you have event</span>
                                                 <span className="time">9:10 AM</span>

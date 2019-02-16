@@ -1,8 +1,9 @@
 // Importando o React
 import React, {Component} from "react";
 import {Link} from "react-router-dom";
-import history from "../history";
+import history from "../../history";
 
+import ApiProvider from './../../../gearUtils/util'
 
 const token = localStorage.getItem('auth-token');
 
@@ -50,7 +51,7 @@ export default class CusForm extends Component {
                 'Authorization': token,
             })
         };
-        fetch('http://187.87.109.66:3005/auth/customer/', requestInfo)
+        fetch(ApiProvider.Add+'/auth/customer/', requestInfo)
             .then(res => {
 
                 if(res.ok){
@@ -127,8 +128,9 @@ export default class CusForm extends Component {
                                                 </div>
 
 
+
                                             </div>
-                                            <div className="col-md-2 mb-3">
+                                            <div className="col-md-4 mb-3">
                                                 <label className="fw-500">Data de nasc.</label>
                                                 <div className="timepicker-input input-icon form-group">
                                                     <div className="input-group">
@@ -143,7 +145,7 @@ export default class CusForm extends Component {
                                             <div className="col-md-6 mb-3">
 
                                                 <label className="fw-500" htmlFor="validationCustom02">E-mail</label>
-                                                <input type="text" className="form-control" id="validationCustom09"
+                                                <input type="email" className="form-control" id="validationCustom09"
                                                        placeholder="exemplo@endereço.com.br" ref={input => this.CusEma = input} required/>
                                             </div>
 
@@ -154,13 +156,13 @@ export default class CusForm extends Component {
 
                                                 <label className="fw-500" htmlFor="validationCustom01">DDD</label>
                                                 <input type="number" className="form-control" id="validationCustom17"
-                                                       placeholder="DDD" ref={input => this.TelAco = input} required/>
+                                                       placeholder="DDD" ref={input => this.TelAco = input} />
                                             </div>
                                             <div className="col-md-4 mb-3">
 
                                                 <label className="fw-500" htmlFor="validationCustom01">Telefone</label>
                                                 <input type="number" className="form-control" id="validationCustom18"
-                                                       placeholder="Telefone" ref={input => this.TelNum = input} required/>
+                                                       placeholder="Telefone" ref={input => this.TelNum = input} />
                                             </div>
                                             <div className="col-sm-2 mb-3">
 
@@ -205,7 +207,7 @@ export default class CusForm extends Component {
                                                 <label className="fw-500" htmlFor="validationCustom04">Estado</label>
 
                                                 <input type="text" className="form-control" id="validationCustom04"
-                                                       placeholder="Estado" ref={input => this.AddSta = input} required/>
+                                                       placeholder="Estado" ref={input => this.AddSta = input}  required />
                                                 <div className="invalid-feedback">Insira estado válido.</div>
                                             </div>
                                             <div className="col-md-3 mb-3">

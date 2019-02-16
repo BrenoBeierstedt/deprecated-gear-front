@@ -3,6 +3,7 @@
 import React from "react";
 
 import { Link } from 'react-router-dom'
+
 const Sidebar = () => (
     <div className="left-sidebar">
 
@@ -20,8 +21,15 @@ const Sidebar = () => (
                         </span>
                     </a>
                         <ul aria-expanded="false" className="collapse">
-                            <Link to="/cusList">Clientes</Link>
 
+                            <li><a className="has-arrow" href="#" aria-expanded="false">Clientes</a>
+                                <ul aria-expanded="false" className="collapse">
+                                    <Link to="/cusList">Clientes</Link>
+                                    <li><Link to="/cvnList">Veiculos</Link> </li>
+
+
+                                </ul>
+                            </li>
                             <Link to="/empList">Funcionários </Link>
 
                         </ul>
@@ -30,11 +38,26 @@ const Sidebar = () => (
                     <li><a className="has-arrow  "  aria-expanded="false"><i
                         className="fa fa-envelope"/><span className="hide-menu">Cadastro interno</span></a>
                         <ul aria-expanded="false" className="collapse">
+                            <li><a className="has-arrow" href="#" aria-expanded="false">Inventário</a>
+                                <ul aria-expanded="false" className="collapse">
+                                    <li><Link to="/proList">Produtos</Link> </li>
+                                    <Link to="/partsList">Peças</Link>
 
-                            <Link to="/InvForm">Produtos</Link>
-                            <Link to="/servForm">Serviços</Link>
-                            <Link to="/partsForm">Peças</Link>
-                            <Link to="/VehiModForm">Modelos</Link>
+                                </ul>
+                            </li>
+
+
+                            <Link to="/vehiModelList">Modelos</Link>
+                        </ul>
+                    </li>
+                    <li><a className="has-arrow  "  aria-expanded="false"><i
+                        className="fa fa-envelope"/><span className="hide-menu">Serviço</span></a>
+                        <ul aria-expanded="false" className="collapse">
+                            <Link to="/ServInProForm">Novo serviço</Link>
+                            <Link to="/ServInProList">Serviços em andamento</Link>
+                            <Link to="/ServList">Serviços comuns</Link>
+
+
                         </ul>
                     </li>
 
@@ -42,8 +65,15 @@ const Sidebar = () => (
                     <li><a className="has-arrow  " aria-expanded="false"><i
                         className="fa fa-level-down"/><span className="hide-menu">Relatórios</span></a>
                         <ul aria-expanded="false" className="collapse">
-                            <Link to="/#">Interno</Link>
-                            <Link to="/#">Externo</Link>
+                            <Link to="/IntRep">Interno</Link>
+                            <Link to="/ExtRep">Externo</Link>
+                        </ul>
+                    </li>
+                    <li><a className="has-arrow  " aria-expanded="false"><i
+                        className="fa fa-level-down"/><span className="hide-menu">T.I</span></a>
+                        <ul aria-expanded="false" className="collapse">
+                            <Link to="/UserForm">Usuários</Link>
+
                         </ul>
                     </li>
                 </ul>

@@ -4,6 +4,8 @@ import React ,{Component} from "react";
 import {Link} from "react-router-dom";
 import EmpPrev from "./empPrev";
 
+import ApiProvider from './../../../gearUtils/util'
+
 
 const token = localStorage.getItem('auth-token');
 
@@ -29,7 +31,7 @@ export default class EmpList extends Component {
 
     componentWillMount() {
 
-        fetch('http://187.87.109.66:3005/auth/employee', requestInfo)
+        fetch(ApiProvider.Add+'/auth/employee', requestInfo)
             .then(res => res.json())
             .then( data => {
                 this.setState({data:data});
@@ -82,7 +84,10 @@ export default class EmpList extends Component {
 
                                     </div>
                                 </div>
-                                <table className="table table-striped">
+                                <div className="table-responsive m-t-40">
+                                    <table id="example23"
+                                           className="display nowrap table table-hover table-striped "
+                                           cellSpacing="0" width="100%">
                                     <thead>
                                     <tr>
 
@@ -108,6 +113,7 @@ export default class EmpList extends Component {
 
 
                                 </table>
+                                </div>
                             </div>
                         </div>
                     </div>

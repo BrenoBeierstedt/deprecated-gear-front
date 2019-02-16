@@ -1,9 +1,5 @@
-// Importando o React
-import React from "react";
-// Importando os components necessários da lib react-materialize
-//import { Row, Col, Card, Input, Button } from 'react-materialize';
-// Importando o componenet UserProfile
-//import UserProfile from '../user_profile/user_profile'
+import React, {Component} from "react";
+import {Link} from "react-router-dom";
 
 const ServList = () => (
     <div className="page-wrapper">
@@ -37,8 +33,8 @@ const ServList = () => (
                                                 className="ti-search"></i></button></span>
                                     </div>
                                     <div className="text-right ">
-                                        <a className="btn cur-p btn-outline-success"
-                                           href="employeeForm.html">Cadastrar</a>
+                                        <Link className="btn cur-p btn-outline-success"
+                                           to={'/ServForm'}>Cadastrar</Link>
 
                                     </div>
                                 </div>

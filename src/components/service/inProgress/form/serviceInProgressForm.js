@@ -1,9 +1,5 @@
-// Importando o React
-import React from "react";
-// Importando os components necessários da lib react-materialize
-//import { Row, Col, Card, Input, Button } from 'react-materialize';
-// Importando o componenet UserProfile
-//import UserProfile from '../user_profile/user_profile'
+import React, {Component} from "react";
+import {Link} from "react-router-dom";
 
 const ServInProForm = () => (
     <div className="page-wrapper">
@@ -235,9 +231,9 @@ const ServInProForm = () => (
 
                             <div className="text-right col-md-12 mb-3">
 
-                                <a className="btn cur-p btn-info" href="employeeList.html">Cancelar</a>
+                                <Link className="btn cur-p btn-info" to={'/ServInProList'}>Cancelar</Link>
 
-
+                                <a>     </a>
                                 <button className="btn cur-p btn-success" type="submit">Salvar</button>
 
                             </div>
