@@ -14,7 +14,7 @@ const Sidebar = () => (
                     <li className="nav-devider"/>
 
 
-                    <li><a className="has-arrow  "aria-expanded="false">
+                    <li><a className="has-arrow" href="."  aria-expanded="false">
                         <i className="fa fa-male"/>
                         <span className="hide-menu">Pessoal
                         <span className="label label-rouded label-primary pull-right">2</span>
@@ -22,7 +22,7 @@ const Sidebar = () => (
                     </a>
                         <ul aria-expanded="false" className="collapse">
 
-                            <li><a className="has-arrow" href="#" aria-expanded="false">Clientes</a>
+                            <li><a className="has-arrow" href="." aria-expanded="false">Clientes</a>
                                 <ul aria-expanded="false" className="collapse">
                                     <Link to="/cusList">Clientes</Link>
                                     <li><Link to="/cvnList">Veiculos</Link> </li>
