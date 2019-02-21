@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React from "react";
 import {Link} from "react-router-dom";
 
 const ServInProForm = () => (
@@ -9,7 +9,7 @@ const ServInProForm = () => (
                 <h3 className="text-primary">Novo serviço</h3></div>
             <div className="col-md-7 align-self-center">
                 <ol className="breadcrumb">
-                    <li className="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                    <li className="breadcrumb-item">Home</li>
 
                     <li className="breadcrumb-item active">Novo serviço</li>
                 </ol>
@@ -159,82 +159,14 @@ const ServInProForm = () => (
                                     </div>
                                 </div>
                             </div>
-                            <div className="card ">
-                                <div className="card-body">
-                                    <div className="card-title">
-                                        <h4>Dados complementares </h4>
 
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-md-3 mb-3">
 
-                                            <label className="fw-500" htmlFor="validationCustom06">Odômetro</label>
-                                            <input type="number" className="form-control" id="validationCustom06"/>
-                                        </div>
-                                        <div className="col-md-6 mb-3">
-                                            <div>
-                                                <label className="fw-500">Tanque</label>
+                            <div className="text-right ">
 
-                                            </div>
+                                <Link className="btn cur-p btn-info m-b-10 m-l-5" to={'/ServInProList'}>Cancelar</Link>
 
-                                            <div className="btn-group text-center">
-                                                <div>
-                                                    <select id="question_type"
-                                                            className="btn btn-light dropdown-toggle">
-                                                        <option name="zero">0</option>
-                                                        <option name="quarter">1/4</option>
-                                                        <option name="half">1/2</option>
-                                                        <option name="halfnquarter">3/4</option>
-                                                        <option name="full">1</option>
-                                                    </select>
-                                                    <script>
-                                                        alert($("#question_type option:selected").attr('name'));
-                                                    </script>
-                                                </div>
-                                            </div>
-                                        </div>
 
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-md-9 mb-3">
-                                            <div>
-                                                <label className="fw-500 text-center">Acessórios</label>
-                                            </div>
-                                            <div className="tags-input fw-500" data-name="tags-input">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-md-9 mb-3">
-                                            <div>
-                                                <label className="fw-500 text-center">Possíveis defeitos</label>
-                                            </div>
-                                            <div className="tags-input fw-500" data-name="tags-input">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-md-9 mb-3">
-                                            <form method="post">
-
-                                                <label className="fw-500"
-                                                       htmlFor="validationCustom06">Observações</label>
-                                                <textarea className="textarea_editor form-control" rows="15"
-                                                          placeholder="Insira texto ..."
-                                                />
-
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="text-right col-md-12 mb-3">
-
-                                <Link className="btn cur-p btn-info" to={'/ServInProList'}>Cancelar</Link>
-
-                                <a>     </a>
-                                <button className="btn cur-p btn-success" type="submit">Salvar</button>
+                                <button className="btn cur-p btn-success m-b-10 m-l-5" type="submit">Salvar</button>
 
                             </div>
 
