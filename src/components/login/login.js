@@ -27,7 +27,7 @@ export default class Login extends Component {
 
         const requestInfo={
           method:'POST',
-          body:JSON.stringify({login:this.login.value,password:this.password.value}),
+          body:JSON.stringify({login:this.login.value.toLowerCase(),password:this.password.value}),
             headers: new Headers({
                 'content-type':'application/json'
             })
@@ -43,7 +43,7 @@ export default class Login extends Component {
             })
             .then(token =>{
                 localStorage.setItem('auth-token',token);
-                history.push('/cusList')
+                history.push('/')
 
             })
             .catch(error=>{
@@ -57,7 +57,7 @@ export default class Login extends Component {
 <div>
         <div className="preloader">
             <svg className="circular" viewBox="25 25 50 50">
-                <circle className="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+                <circle className="path" cx="50" cy="50" r="20" fill="none" strokeWidth="2" strokeMiterlimit="10"/>
             </svg>
         </div>
 
