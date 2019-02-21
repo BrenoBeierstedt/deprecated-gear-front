@@ -13,7 +13,7 @@ const ServInProEdit = () => (
                 <h3 className="text-primary">Serviço em progresso</h3></div>
             <div className="col-md-7 align-self-center">
                 <ol className="breadcrumb">
-                    <li className="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                    <li className="breadcrumb-item">Home</li>
 
                     <li className="breadcrumb-item active">Serviço em progresso</li>
                 </ol>
