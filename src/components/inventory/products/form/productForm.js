@@ -121,43 +121,9 @@ export default class ProductForm extends Component {
 
                                             </div>
                                             <div className="row">
-                                                <div className="col-md-3 mb-3">
-                                                    <div>
-                                                        <label className="fw-500">Derivação</label>
-                                                    </div>
-                                                    <div className="btn-group">
-                                                        <div>
-                                                            <select id="question_type1"
-                                                                    className="btn btn-light dropdown-toggle" ref={input => this.ProDer = input}>
-                                                                <option name="fisica"></option>
-                                                                <option name="juricida">Grande</option>
-                                                                <option name="juricida">Médio</option>
-                                                                <option name="juricida">Pequeno</option>
-                                                                <option name="fisica">unidade</option>
-                                                                <option name="juricida">par</option>
-                                                                <option name="juricida">litro</option>
-                                                                <option name="juricida">Kg</option>
-                                                            </select>
-                                                            <script>
-                                                                alert($("#question_type option:selected").attr('name'));
-                                                            </script>
-                                                        </div>
-                                                    </div>
 
 
-                                                </div>
 
-                                                <div className="col-md-3 mb-3">
-                                                    <div>
-                                                        <label className="fw-500"
-                                                               htmlFor="validationCustom06">Preço</label>
-                                                    </div>
-
-                                                    <input type="number" className="form-control"
-                                                           id="validationCustom06"
-                                                           placeholder="" required ref={input => this.ProPrc = input}/>
-
-                                                </div>
 
 
                                                 <div className="col-md-3 mb-3">
@@ -179,6 +145,47 @@ export default class ProductForm extends Component {
                                                            id="validationCustom21"
                                                            placeholder="" ref={input => this.ProAsg = input}/>
                                                     <div className="invalid-feedback"> Please provide last name.</div>
+                                                </div>
+                                                <div className="col-md-3 mb-3">
+                                                    <div>
+                                                        <label className="fw-500"
+                                                               htmlFor="validationCustom06">Preço</label>
+                                                    </div>
+
+                                                    <input type="number" className="form-control"
+                                                           id="validationCustom06"
+                                                           placeholder="" required ref={input => this.ProPrc = input}/>
+
+                                                </div>
+                                                <div className="col-md-3 mb-3">
+                                                    <div>
+                                                        <label className="fw-500">Derivação</label>
+                                                    </div>
+                                                    <div className="btn-group">
+                                                        <div>
+                                                            <select id="question_type1"
+                                                                    className="btn  dropdown-toggle" ref={input => this.ProDer = input}>
+                                                                <option name="fisica"></option>
+                                                                <option >Grande</option>
+                                                                <option >Médio</option>
+                                                                <option >Pequeno</option>
+                                                                <option >unidade</option>
+                                                                <option >par</option>
+                                                                <option >litro</option>
+                                                                <option >Kg</option>
+                                                                <option >mm</option>
+                                                                <option >cm</option>
+                                                                <option >mt</option>
+                                                                <option >pol</option>
+
+                                                            </select>
+                                                            <script>
+                                                                alert($("#question_type option:selected").attr('name'));
+                                                            </script>
+                                                        </div>
+                                                    </div>
+
+
                                                 </div>
                                             </div>
                                         </div>

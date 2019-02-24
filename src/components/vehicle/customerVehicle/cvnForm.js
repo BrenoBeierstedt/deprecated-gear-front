@@ -2,6 +2,9 @@
 import React, {Component} from "react";
 import {Link} from "react-router-dom";
 
+
+import CusSearch from './../../customer/customerData/dataSearch.js'
+
 export default class VehiCusForm extends Component {
 
     render() {
@@ -13,7 +16,7 @@ export default class VehiCusForm extends Component {
                         <h3 className="text-primary">Cadastro de veiculos</h3> </div>
                     <div className="col-md-7 align-self-center">
                         <ol className="breadcrumb">
-                            <li className="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                            <li className="breadcrumb-item">Home</li>
                             <li className="breadcrumb-item active">Clientes</li>
                             <li className="breadcrumb-item active">Veiculos</li>
                         </ol>
@@ -24,6 +27,7 @@ export default class VehiCusForm extends Component {
 
                     <div className="masonry-item col-md-9">
                         <div className="bgc-white p-20 bd">
+                            <CusSearch/>
                             <div className="card ">
                                 <div className="card-body">
                                     <div className="card-title">

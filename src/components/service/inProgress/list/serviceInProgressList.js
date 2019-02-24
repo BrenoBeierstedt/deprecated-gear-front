@@ -3,7 +3,7 @@ import React ,{Component} from "react";
 
 import ApiProvider from './../../../../gearUtils/util'
 
-import  CusPrev from "./sipPrev";
+import  SipPrev from "./sipPrev";
 import {Link} from "react-router-dom";
 
 
@@ -78,7 +78,7 @@ export default class ServInProList extends Component {
                                             </form>
 
                                             <div className="col-md-5 mb-6 ">
-                                                <Link className="btn cur-p btn-outline-success" to="/cusForm">
+                                                <Link className="btn cur-p btn-outline-success" to="/ServInProForm">
                                                     Cadastrar</Link>
 
                                             </div>
@@ -103,7 +103,7 @@ export default class ServInProList extends Component {
                                                 </tr>
                                                 </thead>
                                                 { this.state.data.map(data =>
-                                                    <CusPrev key={data._id}{...data}/>
+                                                    <SipPrev key={data._id}{...data}/>
                                                 )}
                                             </table>
                                         </div>

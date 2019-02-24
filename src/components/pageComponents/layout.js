@@ -2,6 +2,7 @@ import Header from './header'
 import Footer from './Footer'
 import SideBar from './sidebar'
 
+
 import React from "react"
 
 const Layout = props => (

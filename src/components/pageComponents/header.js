@@ -10,7 +10,7 @@ const Header = () => (
         <nav className="navbar top-navbar navbar-expand-md navbar-light">
 
             <div className="navbar-header">
-                <Link  className="navbar-brand" to={"/CusList"}>
+                <Link  className="navbar-brand" to={"/"}>
 
                     <b><img src="images/logo.png" alt="homepage" className="dark-logo"/></b>
 
@@ -37,7 +37,7 @@ const Header = () => (
 
                     <li className="nav-item hidden-sm-down search-box"><a
                         className="nav-link hidden-sm-down text-muted  " href="javascript:void(0)"><i
-    className="ti-search"/></a>
+                        className="ti-search"/></a>
                         <form className="app-search">
                             <input type="text" className="form-control" placeholder="Search here"/>
                             <a className ="srh-btn"><i className="ti-close"/></a>
@@ -60,7 +60,7 @@ const Header = () => (
 
                                         <a href="#">
                                             <div className="btn btn-danger btn-circle m-r-10"><i
-    className="fa fa-link"/></div>
+                                                className="fa fa-link"/></div>
                                             <div className="mail-contnet">
                                                 <h5>This is title</h5> <span className="mail-desc">Just see the my new admin!</span>
                                                 <span className="time">9:30 AM</span>
@@ -69,7 +69,7 @@ const Header = () => (
 
                                         <a href="#">
                                             <div className="btn btn-success btn-circle m-r-10"><i
-    className="ti-calendar"/></div>
+                                                className="ti-calendar"/></div>
                                             <div className="mail-contnet">
                                                 <h5>This is another title</h5> <span className="mail-desc">Just a reminder that you have event</span>
                                                 <span className="time">9:10 AM</span>
@@ -78,7 +78,7 @@ const Header = () => (
 
                                         <a href="#">
                                             <div className="btn btn-info btn-circle m-r-10"><i
-                                                className="ti-settings"></i></div>
+                                                className="ti-settings"/></div>
                                             <div className="mail-contnet">
                                                 <h5>This is title</h5> <span className="mail-desc">You can customize this template as you want</span>
                                                 <span className="time">9:08 AM</span>
@@ -87,7 +87,7 @@ const Header = () => (
 
                                         <a href="#">
                                             <div className="btn btn-primary btn-circle m-r-10"><i
-                                                className="ti-user"></i></div>
+                                                className="ti-user"/></div>
                                             <div className="mail-contnet">
                                                 <h5>This is another title</h5> <span className="mail-desc">Just see the my admin!</span>
                                                 <span className="time">9:02 AM</span>
@@ -97,7 +97,7 @@ const Header = () => (
                                 </li>
                                 <li>
                                     <a className="nav-link text-center" href="javascript:void(0);"> <strong>Check all
-                                        notifications</strong> <i className="fa fa-angle-right"></i> </a>
+                                        notifications</strong> <i className="fa fa-angle-right"/> </a>
                                 </li>
                             </ul>
                         </div>
@@ -105,8 +105,8 @@ const Header = () => (
 
                     <li className="nav-item dropdown">
                         <a className="nav-link dropdown-toggle text-muted  " href="#" id="2" data-toggle="dropdown"
-                           aria-haspopup="true" aria-expanded="false"> <i className="fa fa-envelope"></i>
-                            <div className="notify"><span className="heartbit"></span> <span className="point"></span>
+                           aria-haspopup="true" aria-expanded="false"> <i className="fa fa-envelope"/>
+                            <div className="notify"><span className="heartbit"/> <span className="point"/>
                             </div>
                         </a>
                         <div className="dropdown-menu dropdown-menu-right mailbox animated zoomIn" aria-labelledby="2">
@@ -120,7 +120,7 @@ const Header = () => (
                                         <a href="#">
                                             <div className="user-img">
                                                 <img src="images/users/5.jpg" alt="user" className="img-circle"/>
-                                                <span className="profile-status online pull-right"></span>
+                                                <span className="profile-status online pull-right"/>
                                             </div>
                                             <div className="mail-contnet">
                                                 <h5>Michael Qin</h5> <span
@@ -145,7 +145,7 @@ const Header = () => (
                                             <div className="user-img">
                                                 <img src="images/users/3.jpg" alt="user" className="img-circle"/>
                                                 <span
-                                                    className="profile-status away pull-right"></span>
+                                                    className="profile-status away pull-right"/>
                                             </div>
                                             <div className="mail-contnet">
                                                 <h5>Mr. John</h5> <span className="mail-desc">I am a singer!</span>
@@ -155,7 +155,7 @@ const Header = () => (
                                         <a href="#">
                                             <div className="user-img">
                                                 <img src="images/users/4.jpg" alt="user" className="img-circle"/>
-                                                <span className="profile-status offline pull-right"></span>
+                                                <span className="profile-status offline pull-right"/>
                                             </div>
                                             <div className="mail-contnet">
                                                 <h5>Michael Qin</h5> <span
@@ -167,7 +167,7 @@ const Header = () => (
                                 </li>
                                 <li>
                                     <a className="nav-link text-center" href="javascript:void(0);"> <strong>See all
-                                        e-Mails</strong> <i className="fa fa-angle-right"></i> </a>
+                                        e-Mails</strong> <i className="fa fa-angle-right"/> </a>
                                 </li>
                             </ul>
                         </div>
@@ -178,11 +178,11 @@ const Header = () => (
                                                                            className="profile-pic"/></a>
                         <div className="dropdown-menu dropdown-menu-right animated zoomIn">
                             <ul className="dropdown-user">
-                                <li><a href="#"><i className="ti-user"></i> Profile</a></li>
-                                <li><a href="#"><i className="ti-wallet"></i> Balance</a></li>
-                                <li><a href="#"><i className="ti-email"></i> Inbox</a></li>
-                                <li><a href="#"><i className="ti-settings"></i> Setting</a></li>
-                                <li><a href="/logout"><i className="fa fa-power-off"></i> Logout</a></li>
+                                <li><a href="#"><i className="ti-user"/> Profile</a></li>
+                                <li><a href="#"><i className="ti-wallet"/> Balance</a></li>
+                                <li><a href="#"><i className="ti-email"/> Inbox</a></li>
+                                <li><a href="#"><i className="ti-settings"/> Setting</a></li>
+                                <li><a href="/logout"><i className="fa fa-power-off"/> Logout</a></li>
                             </ul>
                         </div>
                     </li>

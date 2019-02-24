@@ -30,6 +30,10 @@ import PartsList from "./components/inventory/parts/list/partsList";
 import cvnForm from "./components/vehicle/customerVehicle/cvnForm";
 import cvnList from "./components/vehicle/customerVehicle/cvnList";
 import history from "./components/history";
+import SipVDForm from "./components/service/inProgress/form/SipVDForm";
+import BudgetForm from './components/service/inProgress/budget/budgetForm';
+import TimeLine from './components/service/inProgress/timeLine/timeLine';
+import Test from "./components/customer/customerData/test";
 
 
 const Main = () => (
@@ -43,9 +47,12 @@ const Main = () => (
 
 
 <Switch>
-
-<Route exact path='/'  component={Login}/>
-<PrivateRoute exact path="/principal"   component={App}/>
+    <Route exact path="/login"   component={Login}/>
+    <PrivateRoute exact path='/test'  component={Test}/>
+<PrivateRoute exact path='/'  component={App}/>
+<PrivateRoute exact path='/timeline'  component={TimeLine}/>
+<PrivateRoute exact path='/budgetForm'  component={BudgetForm}/>
+<PrivateRoute exact path='/SipVDForm'  component={SipVDForm}/>
 <PrivateRoute exact path='/cusList'  component={cusList} />
 <PrivateRoute exact path='/cusForm' component={cusForm} />
 <PrivateRoute exact path='/empList' component={EmpList} />

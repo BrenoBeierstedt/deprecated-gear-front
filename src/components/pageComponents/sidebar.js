@@ -11,18 +11,31 @@ const Sidebar = () => (
 
             <nav className="sidebar-nav">
                 <ul id="sidebarnav">
+
                     <li className="nav-devider"/>
 
 
-                    <li><a className="has-arrow" href="."  aria-expanded="false">
-                        <i className="fa fa-male"/>
+
+                    <li><a className="has-arrow  "  aria-expanded="false"><i
+                        className="fa fa-envelope"/><span className="hide-menu">Serviço</span></a>
+                        <ul aria-expanded="false" className="collapse">
+                            <Link to="/ServInProForm">Novo serviço</Link>
+                            <Link to="/ServInProList">Serviços em andamento</Link>
+                            <Link to="/ServList">Serviços comuns</Link>
+
+
+                        </ul>
+                    </li>
+
+                    <li><a className="has-arrow " href="javascript:void(0);"  aria-expanded="false">
+                        <i className="fa fa-male" />
                         <span className="hide-menu">Pessoal
                         <span className="label label-rouded label-primary pull-right">2</span>
                         </span>
                     </a>
                         <ul aria-expanded="false" className="collapse">
 
-                            <li><a className="has-arrow" href="." aria-expanded="false">Clientes</a>
+                            <li><a className="has-arrow" href="javascript:void(0);" aria-expanded="false">Clientes</a>
                                 <ul aria-expanded="false" className="collapse">
                                     <Link to="/cusList">Clientes</Link>
                                     <li><Link to="/cvnList">Veiculos</Link> </li>
@@ -50,16 +63,7 @@ const Sidebar = () => (
                             <Link to="/vehiModelList">Modelos</Link>
                         </ul>
                     </li>
-                    <li><a className="has-arrow  "  aria-expanded="false"><i
-                        className="fa fa-envelope"/><span className="hide-menu">Serviço</span></a>
-                        <ul aria-expanded="false" className="collapse">
-                            <Link to="/ServInProForm">Novo serviço</Link>
-                            <Link to="/ServInProList">Serviços em andamento</Link>
-                            <Link to="/ServList">Serviços comuns</Link>
 
-
-                        </ul>
-                    </li>
 
 
                     <li><a className="has-arrow  " aria-expanded="false"><i

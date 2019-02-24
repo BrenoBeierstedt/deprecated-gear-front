@@ -1,6 +1,6 @@
-import React ,{Component} from "react";
+import React  from "react";
 
-import ApiProvider from './../../../gearUtils/util'
+
 
 import {Link} from "react-router-dom";
 
@@ -13,7 +13,7 @@ const VehiModForm = () => (
                 <h3 className="text-primary">Cadastro de modelos</h3></div>
             <div className="col-md-7 align-self-center">
                 <ol className="breadcrumb">
-                    <li className="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                    <li className="breadcrumb-item">Home</li>
                     <li className="breadcrumb-item active">Cadastro de modelos</li>
                 </ol>
             </div>

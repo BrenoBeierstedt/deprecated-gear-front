@@ -78,7 +78,7 @@ export default class CusForm extends Component {
 
                 <div className="row page-titles">
                     <div className="col-md-5 align-self-center">
-                        <h3 className="text-primary">Cadastro CLiente</h3>
+                        <h3 className="text-primary">Cadastro Cliente</h3>
                     </div>
                     <div className="col-md-7 align-self-center">
                         <ol className="breadcrumb">

@@ -2,6 +2,8 @@ import React, {Component} from "react";
 import {Link} from "react-router-dom";
 import history from "../../../history";
 
+import CusNVhcCard from "../../../customer/customerData/cusNVhcCard";
+
 import ApiProvider from './../../../../gearUtils/util'
 
 const token = localStorage.getItem('auth-token');
@@ -85,20 +87,7 @@ export default class SipVDForm extends Component {
                     <div className="bgc-white p-20 bd">
 
                         <div className="mT-30">
-                            <div className="col-md-13">
-                                <div className="card p-30">
-                                    <div className="media">
-
-                                        <div className="media-left meida media-middle">
-                                            <span><i className="fa fa-usd f-s-40 color-primary"></i></span>
-                                        </div>
-                                        <div className="media-body media-text-right">
-                                            <h2>568120</h2>
-                                            <p className="m-b-0">CARD PARA RELATÓRIO MANUSCRITO</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+<CusNVhcCard/>
                             <form  id="needs-validation" onSubmit={this.send.bind(this)} >
 
                                 <div className="card ">

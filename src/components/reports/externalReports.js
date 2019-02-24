@@ -14,7 +14,7 @@ const ExtRep = () => (
                 <h3 className="text-primary">Relatórios externos</h3></div>
             <div className="col-md-7 align-self-center">
                 <ol className="breadcrumb">
-                    <li className="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                    <li className="breadcrumb-item">Home</li>
                     <li className="breadcrumb-item active">Relatórios externos</li>
                 </ol>
             </div>

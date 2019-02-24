@@ -2,6 +2,8 @@ import React, {Component} from "react";
 import {Link} from "react-router-dom";
 import history from "../../../history";
 import ApiProvider from './../../../../gearUtils/util'
+import CusNVhcCard from './../../../customer/customerData/cusNVhcCard'
+
 
 const token = localStorage.getItem('auth-token');
 
@@ -13,24 +15,24 @@ export default class budgetForm extends Component {
     state = {
         parts: [{'prtQty':"", "prtDes":"", "prtPrc":""}],
         product: [{'proQty':"", "proDescription":"", "proPrice":""}],
-        service: [{'svcDescription':"", "svcPrice":""}],
+        service: [{'svcDescription':"", "svcPrice":"", "svcSts":"1"}],
 
-    }
+    };
     handleChange = (e) => {
         if (["prtQty", "prtDes", "prtPrc"].includes(e.target.getAttribute("b")) ) {
-            let parts = [...this.state.parts]
-            parts[e.target.dataset.id][e.target.getAttribute("b")] = e.target.value.toUpperCase()
+            let parts = [...this.state.parts];
+            parts[e.target.dataset.id][e.target.getAttribute("b")] = e.target.value.toUpperCase();
             this.setState({ parts: parts })
         }
         else {
             this.setState({ [e.target.name]: e.target.value.toUpperCase() })
         }
-    }
+    };
     addCat = (e) => {
         this.setState((prevState) => ({
             parts: [...prevState.parts, {"prtQty":"", "prtDes":"", "prtPrc":""}],
         }));
-    }
+    };
 
     handleRemovePrt(idx){
         this.state.parts.splice(idx,1);
@@ -38,19 +40,19 @@ export default class budgetForm extends Component {
 
         this.setState({part:this.state.parts})
     }
-    //todo parte do produto
+    // parte do produto
     handleChangePro = (e) => {
         if (["proQty", "proDescription", "proPrice"].includes(e.target.getAttribute("b"))) {
-            let product = [...this.state.product]
+            let product = [...this.state.product];
             product[e.target.dataset.id][e.target.getAttribute("b")] = e.target.value.toUpperCase()
             this.setState({product})
         }
-    }
+    };
     addPro = (e) => {
         this.setState((prevState) => ({
             product: [...prevState.product, {'proQty':"", "proDescription":"", "proPrice":""}],
         }));
-    }
+    };
     handleRemovePro(idx){
         this.state.product.splice(idx,1);
 
@@ -58,21 +60,21 @@ export default class budgetForm extends Component {
         this.setState({part:this.state.product})
     }
 
-    //todo fim parte produto
+    // fim parte produto
 
-    //todo serviço
+    // serviço
     handleChangeSvc = (e) => {
         if (["svcDescription", "svcPrice"].includes(e.target.getAttribute("b"))) {
-            let service = [...this.state.service]
-            service[e.target.dataset.id][e.target.getAttribute("b")] = e.target.value.toUpperCase()
-            this.setState({service}, () => console.log(JSON.stringify(this.state)))
+            let service = [...this.state.service];
+            service[e.target.dataset.id][e.target.getAttribute("b")] = e.target.value.toUpperCase();
+            this.setState({service})
         }
-    }
+    };
     addSvc = (e) => {
         this.setState((prevState) => ({
-            service: [...prevState.service, {'svcDescription':"", "svcPrice":""}],
+            service: [...prevState.service, {'svcDescription':"", "svcPrice":"", "svcSts":"1"}],
         }));
-    }
+    };
     handleRemoveSvc(idx){
         this.state.service.splice(idx,1);
 
@@ -80,14 +82,53 @@ export default class budgetForm extends Component {
         this.setState({part:this.state.service})
     }
 
-    //todo fim serviço
+    // fim serviço
+    handleSubmit = (e) => {
+        e.preventDefault();};
 
-    handleSubmit = (e) => { e.preventDefault()
-   };
+    Submit = (e) => {
+        e.preventDefault();
+
+        const requestInfo = {
+
+            method: 'POST',
+            body: JSON.stringify({
+                parts: this.state.parts,
+                product: this.state.product,
+                service: this.state.service,
+
+
+
+
+            }),
+            headers: new Headers({
+                'content-type': 'application/json',
+                'Authorization': token,
+            })
+        };
+        fetch(ApiProvider.Add+'/auth/sip/', requestInfo)
+            .then(res => {
+
+                if(res.ok){
+                    return res.text();
+                }else {
+                    throw new Error('Não foi possivel.')
+                }
+            })
+            .then(token =>{
+
+                history.push('/cusList')
+
+            })
+            .catch(error=>{
+                this.setState({msg:error.message})
+            })
+    };
 
 
     render() {
-        let {owner, description, parts, product,service} = this.state
+        let { parts, product,service} = this.state;
+
 
         return(
 
@@ -112,7 +153,7 @@ export default class budgetForm extends Component {
                         <div className="bgc-white p-20 bd">
 
                             <div className="mT-30">
-
+                                <CusNVhcCard/>
                                 <div className="card ">
                                     <div className="card-body">
                                         <div className="card-title">
@@ -350,10 +391,10 @@ export default class budgetForm extends Component {
                                 </div>
 
                                 <div className="text-right">
-                                    <Link className="btn cur-p btn-info m-b-10 m-l-5" to="/cusList"> Cancelar</Link>
+                                    <Link className="btn cur-p btn-info m-b-10 m-l-5" to="/"> Cancelar</Link>
 
 
-                                    <button className="btn cur-p btn-success m-b-10 m-l-5" onClick={this.handleSubmit} type="submit">Salvar</button>
+                                    <button className="btn cur-p btn-success m-b-10 m-l-5" onClick={this.Submit} type="submit">Salvar</button>
 
                                 </div>
 

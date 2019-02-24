@@ -109,19 +109,41 @@ export default class PartsForm extends Component {
                                                 </div>
                                                 <div class="col-md-6 mb-3">
 
-                                                    <label class="fw-500" for="validationCustom20">Fornecedor</label>
-                                                    <input type="number" class="form-control" id="validationCustom20"
+                                                    <label class="fw-500 " for="validationCustom20">Fornecedor</label>
+                                                    <input type="number" class="form-control " id="validationCustom20"
                                                            required ref={input => this.PrtPvd = input}/>
                                                 </div>
 
                                             </div>
                                             <div class="row">
+                                                <div className="col-md-3 mb-3">
+
+                                                    <label className="fw-500"
+                                                           htmlFor="validationCustom21">Numeração</label>
+                                                    <input type="number" className="form-control"
+                                                           id="validationCustom21"
+                                                           required ref={input => this.PrtNum = input}/>
+                                                </div>
+
+
+                                                <div className="col-md-3 mb-3">
+
+                                                    <label className="fw-500" htmlFor="validationCustom06">Preço</label>
+                                                    <input type="number" className="form-control"
+                                                           id="validationCustom06"
+                                                           placeholder="" required ref={input => this.PrtPrc = input}/>
+
+                                                </div>
                                                 <div class="col-md-3 mb-3">
+                                                    <div>
                                                     <label class="fw-500">Estado</label>
+                                                    </div>
                                                     <div class="btn-group">
                                                         <div>
                                                             <select id="question_type1"
-                                                                    class="btn btn-light dropdown-toggle" ref={input => this.PrtCon = input}>
+                                                                    className="btn   dropdown-toggle  " data-toggle="dropdown" aria-expanded="true"
+                                                                    ref={input => this.PrtCon = input}>
+                                                                <option name="fisica"></option>
                                                                 <option name="fisica">Novo</option>
                                                                 <option name="juricida">Usado</option>
                                                                 <option name="juricida">Recondicionado</option>
@@ -134,22 +156,33 @@ export default class PartsForm extends Component {
 
 
                                                 </div>
-                                                <div class="col-md-3 mb-3">
+                                                <div className="col-md-3 mb-3">
+                                                    <div>
+                                                    <label className="fw-500">Derivação</label>
+                                                    </div>
+                                                    <div className="btn-group">
+                                                        <div className="mb-xl-1">
+                                                            <select id="question_type1"
+                                                                    className="btn  dropdown-toggle  " data-toggle="dropdown" aria-expanded="true"
+                                                                    ref={input => this.PrtCon = input}>
+                                                                <option name="fisica"></option>
+                                                                <option name="fisica">F.E</option>
+                                                                <option name="juricida">F.D</option>
+                                                                <option name="juricida">T.E</option>
+                                                                <option name="juricida">T.D</option>
+                                                            </select>
+                                                            <script>
+                                                                alert($("#question_type option:selected").attr('name'));
+                                                            </script>
+                                                        </div>
+                                                    </div>
 
-                                                    <label class="fw-500" for="validationCustom21">Numeração</label>
-                                                    <input type="number" class="form-control" id="validationCustom21"
-                                                           required ref={input => this.PrtNum = input}/>
                                                 </div>
 
 
-                                                <div class="col-md-3 mb-3">
 
-                                                    <label class="fw-500" for="validationCustom06">Preço</label>
-                                                    <input type="number" class="form-control" id="validationCustom06"
-                                                           placeholder="" required ref={input => this.PrtPrc = input}/>
-
-                                                </div>
-
+                                            </div>
+                                            <div className="row">
                                                 <div class="col-md-3 mb-3">
                                                     <label class="fw-500" for="validationCustom07">Estoque atual</label>
 
@@ -166,9 +199,9 @@ export default class PartsForm extends Component {
                                                            placeholder="" ref={input => this.PrtMsg = input}/>
                                                     <div className="invalid-feedback"> Please provide last name.</div>
                                                 </div>
-                                            </div>
-                                        </div>
 
+                                        </div>
+                                        </div>
                                     </div>
 
                                     <div class="text-right">

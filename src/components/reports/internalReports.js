@@ -13,7 +13,7 @@ const IntRep = () => (
                 <h3 className="text-primary">Relatórios Internos</h3></div>
             <div className="col-md-7 align-self-center">
                 <ol className="breadcrumb">
-                    <li className="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                    <li className="breadcrumb-item">Home</li>
                     <li className="breadcrumb-item active">Relatórios Internos</li>
                 </ol>
             </div>
@@ -33,10 +33,10 @@ const IntRep = () => (
                             <div className="bgc-white bd bdrs-3 p-20 mB-20">
                                 <div className="row">
                                     <div className="input-group input-group-rounded col-md-8 mb-3 ">
-                                        <input type="text" placeholder="Modelo" name="Search" className="form-control"></input>
+                                        <input type="text" placeholder="Modelo" name="Search" className="form-control"/>
                                             <span className="input-group-btn"><button
                                                 className="btn btn-primary btn-group-right" type="submit"><i
-                                                className="ti-search"></i></button></span>
+    className="ti-search"/></button></span>
                                     </div>
                                     <div className="text-right ">
 
