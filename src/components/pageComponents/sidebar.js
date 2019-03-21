@@ -3,6 +3,7 @@
 import React from "react";
 
 import { Link } from 'react-router-dom'
+import MnfModelList from "../vehicle/models/mnf/MnfModelList";
 
 const Sidebar = () => (
     <div className="left-sidebar">
@@ -16,7 +17,7 @@ const Sidebar = () => (
 
 
 
-                    <li><a className="has-arrow  "  aria-expanded="false"><i
+                    <li><a className="has-arrow  " href="#" aria-expanded="false"><i
                         className="fa fa-envelope"/><span className="hide-menu">Serviço</span></a>
                         <ul aria-expanded="false" className="collapse">
                             <Link to="/ServInProForm">Novo serviço</Link>
@@ -48,25 +49,32 @@ const Sidebar = () => (
                         </ul>
                     </li>
 
-                    <li><a className="has-arrow  "  aria-expanded="false"><i
+                    <li><a className="has-arrow  "  href="#" aria-expanded="false"><i
                         className="fa fa-envelope"/><span className="hide-menu">Cadastro interno</span></a>
                         <ul aria-expanded="false" className="collapse">
                             <li><a className="has-arrow" href="#" aria-expanded="false">Inventário</a>
                                 <ul aria-expanded="false" className="collapse">
-                                    <li><Link to="/proList">Produtos</Link> </li>
+                                    <Link to="/proList">Produtos</Link>
                                     <Link to="/partsList">Peças</Link>
 
                                 </ul>
                             </li>
 
+                            <li><a className="has-arrow  "href="#" aria-expanded="false">
+                                <span className="hide-menu" >Modelos</span></a>
+                                <ul aria-expanded="false" className="collapse">
 
-                            <Link to="/vehiModelList">Modelos</Link>
+                                    <Link to="/mnflist">Marcas</Link>
+                                    <Link to="/vehiModelList">Veículos</Link>
+                                </ul>
+                            </li>
+
                         </ul>
                     </li>
 
 
 
-                    <li><a className="has-arrow  " aria-expanded="false"><i
+                    <li><a className="has-arrow  " href="#" aria-expanded="false"><i
                         className="fa fa-level-down"/><span className="hide-menu">Relatórios</span></a>
                         <ul aria-expanded="false" className="collapse">
                             <Link to="/IntRep">Interno</Link>

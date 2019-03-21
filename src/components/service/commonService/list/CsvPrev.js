@@ -1,19 +1,19 @@
 import React from "react";
 import {Link} from "react-router-dom";
 
-const VhcPrev = props =>
+const PrtPrev = props =>
 
     <tbody>
     <tr>
 
-        <td>{props.name}</td>
-        <td>{props.marca}</td>
-
+        <td>{props.CsvDes}</td>
+        <td>{props.CsvPrc}</td>
+        <td>{props.CsvObs}</td>
 
 
 
         <td>
-            <Link to={"/cusForm"}
+            <Link to={"/partsForm"}
                className="td-n c-deep-purple-500 cH-blue-500 fsz-md p-5">
                 <i className="ti-pencil">
                 </i>
@@ -29,4 +29,4 @@ const VhcPrev = props =>
 
     </tbody>;
 
-export default VhcPrev;
+export default PrtPrev;

@@ -1,144 +1,352 @@
-import React from "react";
+import React, {Component} from "react";
 import {Link} from "react-router-dom";
+import Select from "react-select";
 
-import CusSearch from './../../../customer/customerData/dataSearch.js'
+import ApiProvider from "../../../../gearUtils/util";
+import history from "../../../history";
 
-const ServInProForm = () => (
-    <div className="page-wrapper">
 
-        <div className="row page-titles">
-            <div className="col-md-5 align-self-center">
-                <h3 className="text-primary">Novo serviço</h3></div>
-            <div className="col-md-7 align-self-center">
-                <ol className="breadcrumb">
-                    <li className="breadcrumb-item">Home</li>
 
-                    <li className="breadcrumb-item active">Novo serviço</li>
-                </ol>
+
+global.info = null;
+let options = [];
+let options1 = [];
+let apiLink=ApiProvider.Add+"/auth/cvn/";
+const requestInfo = {
+
+    method: 'GET',
+
+    headers: new Headers({
+
+        'Authorization': localStorage.getItem('auth-token'),
+    })
+};
+
+let copyOptionsForAsync = async (e)=> {
+    options1=[];
+
+    let url =apiLink  +  global.info+"/search?q=";
+    let response = await fetch(url, requestInfo);
+
+    let data = await response.json();
+
+    data.forEach(element => {
+        let dropDownEle = { label: element["CvnPlt"] + ",  "+element["MdlNam"], value: element };
+        options1.push(dropDownEle);
+
+    });
+
+}
+
+
+export default class ServInProForm extends Component {
+    componentWillMount() {
+
+        fetch(ApiProvider.Add +"/auth/customer", requestInfo)
+            .then(res => res.json())
+            .then( data => {
+
+
+                data.forEach(element => {
+                    let dropDownEle = { label: element["CusNam"], value: element };
+                    options.push(dropDownEle);
+                })
+            })
+    }
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            customer: [],
+            vehicle: [],
+            isSelected: false,
+            CusCod:"",
+            svcSts:"Cadastro Inicial"
+        };
+    }
+    send(event) {
+event.preventDefault();
+        const requestInfoPost = {
+
+            method: 'POST',
+            body: JSON.stringify({
+                SipCus: this.state.customer.CusNam,
+                Cf1Aco: this.state.customer.Cf1Aco,
+                Cf1Num: this.state.customer.Cf1Num,
+                CusCod: this.state.customer.CusCod,
+                CvnPlt: this.state.vehicle.CvnPlt,
+                CvnID: this.state.vehicle._id,
+
+                MdlNam: this.state.vehicle.MdlNam,
+                svcSts:this.state.svcSts,
+
+
+            }),
+            headers: new Headers({
+                'content-type': 'application/json',
+                'Authorization': localStorage.getItem('auth-token'),
+            })
+        };
+        fetch(ApiProvider.Add+'/auth/sip/', requestInfoPost)
+            .then(res => {
+
+                if(res.ok){
+                    return res.text();
+                }else {
+                    throw new Error('Não foi possivel.')
+                }
+            })
+            .then(token =>{
+
+                history.push('/ServInProList')
+
+            })
+            .catch(error=>{
+                this.setState({msg:error.message})
+            })
+    };
+
+    cvnCallback = (vehicle) => {
+
+        this.setState({vehicle:vehicle},function () {
+            console.log(this.state.vehicle);
+        });
+
+    };
+    handleOnchange = async (event) => {
+        options1=[];
+        global.info = event.value.CusCod;
+        await copyOptionsForAsync();
+        this.setState({ isSelected: true });
+        copyOptionsForAsync( global.info);
+        this.setState({customer:event.value})
+    };
+
+
+    render(){
+        return(
+
+            <div className="page-wrapper">
+
+                <div className="row page-titles">
+                    <div className="col-md-5 align-self-center">
+                        <h3 className="text-primary">Novo serviço</h3></div>
+                    <div className="col-md-7 align-self-center">
+                        <ol className="breadcrumb">
+                            <li className="breadcrumb-item">Home</li>
+
+                            <li className="breadcrumb-item active">Novo serviço</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div className="container-fluid">
+
+                    <form  id="needs-validation" onSubmit={this.send.bind(this)} >
+
+                    <div className="masonry-item col-md-9">
+                        <div className="bgc-white p-20 bd">
+                            <div className="mT-30">
+                                    <div className="card ">
+                                        <div className="card-body">
+                                            <div className="card-title">
+                                                <h4>Dados do Cliente </h4>
+
+                                            </div>
+                                            <div className="row">
+                                                <div className="col-md-6 mb-md-5 ">
+                                            <Select
+                                                name="option"
+                                                options={options}
+                                                onChange={this.handleOnchange}
+
+                                            />
+                                                </div>
+                                            </div>
+
+                                            <div className="row">
+                                                <div className="col-md-3 mb-3">
+
+                                                    <label className="fw-500">Nome</label>
+
+                                                    <p className="form-control-static">{this.state.customer.CusNam} </p>
+
+                                                </div>
+
+
+                                                <div className="col-md-3 mb-3">
+
+                                                    <label className="fw-500">CPF/CNPJ</label>
+
+                                                    <p className="form-control-static"> {this.state.customer.CusSec}</p>
+
+                                                </div>
+                                                <div className="col-md-3 mb-3">
+
+                                                    <label className="fw-500">E-mail</label>
+
+                                                    <p className="form-control-static">{this.state.customer.CusEma} </p>
+
+                                                </div>
+                                                <div className="col-md-3 mb-3">
+
+                                                    <label className="fw-500">Telefone</label>
+
+                                                    <p className="form-control-static"> {this.state.customer.Cf1Num}</p>
+
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                                        {this.state.isSelected ? <App1  callBack={this.cvnCallback} /> : null}
+
+
+
+
+                                        </div>
+                                    </div>
+
+
+                                    <div className="text-right ">
+
+                                        <Link className="btn cur-p btn-info m-b-10 m-l-5" to={'/ServInProList'}>Cancelar</Link>
+
+
+                                        <button className="btn cur-p btn-success m-b-10 m-l-5" type="submit">Salvar</button>
+
+                                    </div>
+
+
+
+                            </div>
+                    </form>
+
+                </div>
+                    </div>
+
+
+
+        )
+    }
+}
+
+
+class App1 extends React.Component {
+
+state={
+    vehicle:[]
+};
+
+    handleSelectChange = (event) => {
+        const info = event.value;
+        this.props.callBack(info);
+    this.setState({vehicle:[]});
+        this.setState({vehicle:event.value}
+        );
+
+    };
+
+
+    render() {
+
+        return (
+
+            <div className="card ">
+                <div className="card-body">
+                    <div className="card-title">
+                        <h4>Dados do veiculo </h4>
+
+                    </div>
+
+                    <div className="row">
+                        <div className="col-md-6 mb-md-5 ">
+                            <div className="App">
+                <Select name="options2"
+                        options={options1}
+                        onChange={this.handleSelectChange}
+                />
             </div>
-        </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-md-3 mb-3">
+                        <label className="fw-500">Modelo</label>
+                        <div className="timepicker-input input-icon form-group">
 
-        <div className="container-fluid">
+                            <p className="form-control-static" >{this.state.vehicle.MdlNam}</p>
 
+                        </div>
+                    </div>
+                    <div className="col-md-3 mb-3">
+                        <label className="fw-500">Fabricante</label>
+                        <div className="timepicker-input input-icon form-group">
 
-            <div className="masonry-item col-md-9">
-                <div className="bgc-white p-20 bd">
+                            <p className="form-control-static"> {this.state.vehicle.MnfNam}  </p>
 
-                    <div className="mT-30">
-                        <form className="container" id="needs-validation" noValidate>
-                            <CusSearch/>
+                        </div>
+                    </div>
+                    <div className="col-md-6 mb-3">
 
-                            <div className="card ">
-                                <div className="card-body">
-                                    <div className="card-title">
-                                        <h4>Dados do veiculo </h4>
+                        <label className="fw-500">Placa</label>
 
-                                    </div>
-                                    <div className="row">
-                                        <div className="input-group input-group-rounded col-md-9 mb-3 ">
-                                            <input type="text" placeholder="Veiculo" name="Search"
-                                                   className="form-control"/>
-                                            <span className="input-group-btn"><button
-                                                className="btn btn-primary btn-group-right" type="submit"><i
-                                                className="ti-search"/></button></span>
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-md-3 mb-3">
-                                            <label className="fw-500">Modelo</label>
-                                            <div className="timepicker-input input-icon form-group">
-
-                                                <p className="form-control-static"> 320i Sport </p>
-
-                                            </div>
-                                        </div>
-                                        <div className="col-md-3 mb-3">
-                                            <label className="fw-500">Fabricante</label>
-                                            <div className="timepicker-input input-icon form-group">
-
-                                                <p className="form-control-static"> BMW </p>
-
-                                            </div>
-                                        </div>
-                                        <div className="col-md-6 mb-3">
-
-                                            <label className="fw-500">Placa</label>
-
-                                            <p className="form-control-static"> xyz-1234 </p>
-
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-md-3 mb-3">
-                                            <label className="fw-500">Ano de fabricação</label>
-                                            <div className="timepicker-input input-icon form-group">
-
-                                                <p className="form-control-static"> 2017 </p>
-
-                                            </div>
-                                        </div>
-                                        <div className="col-md-3 mb-3">
-                                            <label className="fw-500">Ano do modelo</label>
-                                            <div className="timepicker-input input-icon form-group">
-
-                                                <p className="form-control-static"> 2017 </p>
-
-                                            </div>
-                                        </div>
-                                        <div className="col-md-6 mb-3">
-
-                                            <label className="fw-500">Cilindrada (cm³)</label>
-
-                                            <p className="form-control-static"> 1997 </p>
-
-                                        </div>
-                                    </div>
-                                    <div className="row">
-
-                                        <div className="col-md-3 mb-3">
-                                            <div>
-                                                <label className="fw-500 text-center">Combustível</label>
-                                            </div>
-
-
-                                            <p className="form-control-static"> Gasolina </p>
-
-                                        </div>
-                                        <div className="col-md-3 mb-3">
-                                            <div>
-                                                <label className="fw-500 text-center">Chassis</label>
-                                            </div>
-
-
-                                            <p className="form-control-static"> wba3b1108dj409100 </p>
-
-                                        </div>
-
-
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div className="text-right ">
-
-                                <Link className="btn cur-p btn-info m-b-10 m-l-5" to={'/ServInProList'}>Cancelar</Link>
-
-
-                                <button className="btn cur-p btn-success m-b-10 m-l-5" type="submit">Salvar</button>
-
-                            </div>
-
-                        </form>
+                        <p className="form-control-static"> {this.state.vehicle.CvnPlt} </p>
 
                     </div>
                 </div>
-            </div>
-        </div>
+                <div className="row">
+                    <div className="col-md-3 mb-3">
+                        <label className="fw-500">Ano de fabricação</label>
+                        <div className="timepicker-input input-icon form-group">
+
+                            <p className="form-control-static"> {this.state.vehicle.CvnFby} </p>
+
+                        </div>
+                    </div>
+                    <div className="col-md-3 mb-3">
+                        <label className="fw-500">Ano do modelo</label>
+                        <div className="timepicker-input input-icon form-group">
+
+                            <p className="form-control-static"> {this.state.vehicle.CvnMdy} </p>
+
+                        </div>
+                    </div>
+                    <div className="col-md-6 mb-3">
+
+                        <label className="fw-500">Cilindrada (cm³)</label>
+
+                        <p className="form-control-static">{this.state.vehicle.CvnPlt} </p>
+
+                    </div>
+                </div>
+                <div className="row">
+
+                    <div className="col-md-3 mb-3">
+                        <div>
+                            <label className="fw-500 text-center">Combustível</label>
+                        </div>
 
 
+                        <p className="form-control-static"> {this.state.vehicle.CvnFtp} </p>
 
-    </div>
-);
+                    </div>
+                    <div className="col-md-3 mb-3">
+                        <div>
+                            <label className="fw-500 text-center">Chassis</label>
+                        </div>
 
-export default ServInProForm;
+
+                        <p className="form-control-static"> {this.state.vehicle.CvnCch} </p>
+
+                    </div>
+
+
+                </div>
+                </div>
+        );
+    }
+}

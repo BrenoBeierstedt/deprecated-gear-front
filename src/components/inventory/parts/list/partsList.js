@@ -4,6 +4,7 @@ import  PrtPrev from "./prtPrev";
 import {Link} from "react-router-dom";
 
 import ApiProvider from './../../../../gearUtils/util'
+import CusPrev from "../../../customer/list/customerList";
 
 
 const token = localStorage.getItem('auth-token');
@@ -20,24 +21,39 @@ const requestInfo = {
 
     export default class PartsList extends Component {
 
-    constructor(){
-        super();
-        this.state = {data:[]};
-    };
+        token = null;
+        state = {
+            query: "",
+            parts: []
+        };
 
-    componentWillMount() {
+        onChange = e => {
+            const { value } = e.target;
+            this.setState({
+                query: value
+            });
 
-        fetch(ApiProvider.Add+'/auth/part', requestInfo)
-            .then(res => res.json())
-            .then( data => {
-                this.setState({data:data});
+            this.search(value);
+        };
 
-            })
-            .catch(function (error) {
-                console.log(error)
-            })
-    }
 
+        search = query => {
+            const url = ApiProvider.Add +`/auth/parts/search?q=${query}`;
+            const token = {};
+            this.token = token;
+
+            fetch(url, requestInfo)
+                .then(results => results.json())
+                .then(data => {
+                    if (this.token === token) {
+                        this.setState({ parts: data });
+                    }
+                });
+        };
+
+        componentDidMount() {
+            this.search("");
+        }
 
     render() {
         return (
@@ -67,11 +83,8 @@ const requestInfo = {
                                             <form className="col-md-4 mb-6 "  >
                                                 <div className="input-group input-group-rounded col-md-16 mb-3 ">
 
-                                                    <input type="text" placeholder="Descrição" name="search"
-                                                           className="form-control" ref={input => this.cliente = input}/>
-
-                                                    <button className="btn btn-primary btn-group-right" type="submit">
-                                                        <i className="ti-search"/></button>
+                                                    <input type="text" placeholder="Pesquisar Peça" name="search"
+                                                           className="form-control" onChange={this.onChange}/>
 
                                                 </div>
                                             </form>
@@ -103,9 +116,9 @@ const requestInfo = {
                                                 </th>
                                             </tr>
                                             </thead>
-                                            { this.state.data.map(data =>
-                                                <PrtPrev key={data._id}{...data}/>
-                                            )}
+                                                {this.state.parts.map(parts => (
+                                                    <PrtPrev key={parts._id}{...parts}/>
+                                                ))}
                                         </table>
                                     </div>
                                     </div>

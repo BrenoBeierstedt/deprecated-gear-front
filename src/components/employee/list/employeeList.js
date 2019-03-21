@@ -5,6 +5,7 @@ import {Link} from "react-router-dom";
 import EmpPrev from "./empPrev";
 
 import ApiProvider from './../../../gearUtils/util'
+import CusPrev from "../../customer/list/customerList";
 
 
 const token = localStorage.getItem('auth-token');
@@ -23,23 +24,38 @@ const requestInfo = {
 
 export default class EmpList extends Component {
 
-
-    constructor(){
-        super();
-        this.state = {data:[]};
+    token = null;
+    state = {
+        query: "",
+        employee: []
     };
 
-    componentWillMount() {
+    onChange = e => {
+        const { value } = e.target;
+        this.setState({
+            query: value
+        });
 
-        fetch(ApiProvider.Add+'/auth/employee', requestInfo)
-            .then(res => res.json())
-            .then( data => {
-                this.setState({data:data});
+        this.search(value);
+    };
 
-            })
-            .catch(function (error) {
-                console.log(error)
-            })
+
+    search = query => {
+        const url = ApiProvider.Add +`/auth/emp/search?q=${query}`;
+        const token = {};
+        this.token = token;
+
+        fetch(url, requestInfo)
+            .then(results => results.json())
+            .then(data => {
+                if (this.token === token) {
+                    this.setState({ employee: data });
+                }
+            });
+    };
+
+    componentDidMount() {
+        this.search("");
     }
 
     render() {
@@ -71,11 +87,9 @@ export default class EmpList extends Component {
                                     <form className="col-md-4 mb-6 "  >
                                         <div className="input-group input-group-rounded col-md-16 mb-3 ">
 
-                                            <input type="text" placeholder="Nome" name="search"
-                                                   className="form-control" ref={input => this.cliente = input}/>
 
-                                            <button className="btn btn-primary btn-group-right" type="submit">
-                                                <i className="ti-search"/></button>
+                                            <input type="text" placeholder="Pesquisar Empregado" name="search"
+                                                   className="form-control" onChange={this.onChange}/>
 
                                         </div>
                                     </form>
@@ -106,9 +120,9 @@ export default class EmpList extends Component {
                                     </tr>
                                     </thead>
 
-                                    { this.state.data.map(data =>
-                                        <EmpPrev key={data.EmpCod}{...data}/>
-                                    )}
+                                        {this.state.employee.map(employee => (
+                                            <EmpPrev key={employee._id}{...employee}/>
+                                        ))}
 
 
 

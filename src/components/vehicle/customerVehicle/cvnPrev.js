@@ -5,10 +5,10 @@ const CusPrev = props =>
 
     <tbody>
     <tr>
-
-        <td>{props.CvnMdl}</td>
-        <td>{props.CvnPlt}</td>
         <td>{props.CusNam}</td>
+        <td>{props.MnfNam}</td>
+        <td>{props.MdlNam}</td>
+        <td>{props.CvnPlt}</td>
 
 
 
@@ -19,11 +19,7 @@ const CusPrev = props =>
                 </i>
             </Link>
 
-            <Link to={"/VehiCusForm"}
-               className="td-n c-red-500 cH-blue-500 fsz-md p-5">
-                <i className="ti-car">
-                </i>
-            </Link>
+
         </td>
 
 

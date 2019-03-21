@@ -32,6 +32,7 @@ export default class PartsForm extends Component {
                 PrtDes: this.PrtDes.value,
                 PrtPvd: this.PrtPvd.value,
                 PrtCon: this.PrtCon.value,
+                PrtDer: this.PrtDer.value,
                 PrtNum: this.PrtNum.value,
                 PrtPrc: this.PrtPrc.value,
                 PrtAsg: this.PrtAsg.value,
@@ -110,7 +111,7 @@ export default class PartsForm extends Component {
                                                 <div class="col-md-6 mb-3">
 
                                                     <label class="fw-500 " for="validationCustom20">Fornecedor</label>
-                                                    <input type="number" class="form-control " id="validationCustom20"
+                                                    <input type="text" class="form-control " id="validationCustom20"
                                                            required ref={input => this.PrtPvd = input}/>
                                                 </div>
 
@@ -120,7 +121,7 @@ export default class PartsForm extends Component {
 
                                                     <label className="fw-500"
                                                            htmlFor="validationCustom21">Numeração</label>
-                                                    <input type="number" className="form-control"
+                                                    <input type="text" className="form-control"
                                                            id="validationCustom21"
                                                            required ref={input => this.PrtNum = input}/>
                                                 </div>
@@ -143,7 +144,7 @@ export default class PartsForm extends Component {
                                                             <select id="question_type1"
                                                                     className="btn   dropdown-toggle  " data-toggle="dropdown" aria-expanded="true"
                                                                     ref={input => this.PrtCon = input}>
-                                                                <option name="fisica"></option>
+                                                                <option name="fisica"/>
                                                                 <option name="fisica">Novo</option>
                                                                 <option name="juricida">Usado</option>
                                                                 <option name="juricida">Recondicionado</option>
@@ -164,8 +165,8 @@ export default class PartsForm extends Component {
                                                         <div className="mb-xl-1">
                                                             <select id="question_type1"
                                                                     className="btn  dropdown-toggle  " data-toggle="dropdown" aria-expanded="true"
-                                                                    ref={input => this.PrtCon = input}>
-                                                                <option name="fisica"></option>
+                                                                    ref={input => this.PrtDer= input}>
+                                                                <option name="fisica"/>
                                                                 <option name="fisica">F.E</option>
                                                                 <option name="juricida">F.D</option>
                                                                 <option name="juricida">T.E</option>
@@ -184,10 +185,10 @@ export default class PartsForm extends Component {
                                             </div>
                                             <div className="row">
                                                 <div class="col-md-3 mb-3">
-                                                    <label class="fw-500" for="validationCustom07">Estoque atual</label>
+                                                    <label class="fw-500" for="validationCustom07">Estoque minimo</label>
 
                                                     <input type="number" class="form-control" id="validationCustom07"
-                                                           placeholder="" ref={input => this.PrtAsg = input}/>
+                                                           placeholder="" ref={input => this.PrtMsg = input}/>
                                                     <div class="invalid-feedback"> Please provide last name.</div>
                                                 </div>
                                                 <div className="col-md-3 mb-3">
@@ -196,7 +197,7 @@ export default class PartsForm extends Component {
 
                                                     <input type="number" className="form-control"
                                                            id="validationCustom07"
-                                                           placeholder="" ref={input => this.PrtMsg = input}/>
+                                                           placeholder="" ref={input => this.PrtAsg = input}/>
                                                     <div className="invalid-feedback"> Please provide last name.</div>
                                                 </div>
 

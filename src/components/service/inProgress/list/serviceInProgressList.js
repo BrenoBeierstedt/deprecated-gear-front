@@ -21,22 +21,38 @@ const requestInfo = {
 
 export default class ServInProList extends Component {
 
-    constructor(){
-        super();
-        this.state = {data:[]};
+    token = null;
+    state = {
+        query: "",
+        sip: []
     };
 
-    componentWillMount() {
+    onChange = e => {
+        const { value } = e.target;
+        this.setState({
+            query: value
+        });
 
-        fetch( ApiProvider.Add+'/auth/customer', requestInfo)
-            .then(res => res.json())
-            .then( data => {
-                this.setState({data:data});
+        this.search(value);
+    };
 
-            })
-            .catch(function (error) {
-                console.log(error)
-            })
+
+    search = query => {
+        const url = ApiProvider.Add +`/auth/l/sip/search?q=${query}`;
+        const token = {};
+        this.token = token;
+
+        fetch(url, requestInfo)
+            .then(results => results.json())
+            .then(data => {
+                if (this.token === token) {
+                    this.setState({ sip: data });
+                }
+            });
+    };
+
+    componentDidMount() {
+        this.search("");
     }
 
 
@@ -68,11 +84,8 @@ export default class ServInProList extends Component {
                                             <form className="col-md-4 mb-6 "  >
                                                 <div className="input-group input-group-rounded col-md-16 mb-3 ">
 
-                                                    <input type="text" placeholder="cliente" name="search"
-                                                           className="form-control" ref={input => this.cliente = input}/>
-
-                                                    <button className="btn btn-primary btn-group-right" type="submit">
-                                                        <i className="ti-search"/></button>
+                                                    <input type="text" placeholder="Pesquisar Cliente" name="search"
+                                                           className="form-control" onChange={this.onChange}/>
 
                                                 </div>
                                             </form>
@@ -89,22 +102,24 @@ export default class ServInProList extends Component {
                                                    cellSpacing="0" width="100%">
                                                 <thead>
                                                 <tr>
-
+                                                    <th scope="col">
+                                                        Cód. Serviço</th>
                                                     <th scope="col">
                                                         Cliente</th>
-                                                    <th scope="col">
-                                                        Telefone</th>
+
                                                     <th scope="col">
                                                         Veiculo</th>
                                                     <th scope="col">
                                                         Placa</th>
                                                     <th scope="col">
+                                                        Status</th>
+                                                    <th scope="col">
                                                         Editar</th>
                                                 </tr>
                                                 </thead>
-                                                { this.state.data.map(data =>
-                                                    <SipPrev key={data._id}{...data}/>
-                                                )}
+                                                {this.state.sip.map(sip => (
+                                                    <SipPrev key={sip._id}{...sip}/>
+                                                ))}
                                             </table>
                                         </div>
                                     </div>

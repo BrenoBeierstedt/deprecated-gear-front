@@ -1,13 +1,12 @@
 import React from "react";
 import {Link} from "react-router-dom";
 
-const VhcPrev = props =>
+const MnfPrev = props =>
 
     <tbody>
     <tr>
 
         <td>{props.name}</td>
-        <td>{props.marca}</td>
 
 
 
@@ -29,4 +28,4 @@ const VhcPrev = props =>
 
     </tbody>;
 
-export default VhcPrev;
+export default MnfPrev;

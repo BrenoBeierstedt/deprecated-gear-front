@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {Link} from "react-router-dom";
 import history from "../../../history";
 
-
+import ApiProvider from './../../../../gearUtils/util'
 
 const token = localStorage.getItem('auth-token');
 
@@ -43,7 +43,7 @@ export default class ProductForm extends Component {
                 'Authorization': token,
             })
         };
-        fetch('http://187.87.109.66:3005/auth/product/', requestInfo)
+        fetch(ApiProvider.Add+'/auth/product/', requestInfo)
             .then(res => {
 
                 if(res.ok){

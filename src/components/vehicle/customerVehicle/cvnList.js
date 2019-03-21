@@ -3,8 +3,9 @@ import React ,{Component} from "react";
 
 import ApiProvider from '../../../gearUtils/util'
 
-import  cvnPrev from "./cvnPrev";
+import  CvnPrev from "./cvnPrev";
 import {Link} from "react-router-dom";
+
 
 
 const token = localStorage.getItem('auth-token');
@@ -21,22 +22,38 @@ const requestInfo = {
 
 export default class VehiModelList extends Component {
 
-    constructor(){
-        super();
-        this.state = {data:[]};
+    token = null;
+    state = {
+        query: "",
+        cvn: []
     };
 
-    componentWillMount() {
+    onChange = e => {
+        const { value } = e.target;
+        this.setState({
+            query: value
+        });
 
-        fetch( ApiProvider.Add+'/auth/costumervehicle', requestInfo)
-            .then(res => res.json())
-            .then( data => {
-                this.setState({data:data});
+        this.search(value);
+    };
 
-            })
-            .catch(function (error) {
-                console.log(error)
-            })
+
+    search = query => {
+        const url = ApiProvider.Add +`/auth/cvn/search?q=${query}`;
+        const token = {};
+        this.token = token;
+
+        fetch(url, requestInfo)
+            .then(results => results.json())
+            .then(data => {
+                if (this.token === token) {
+                    this.setState({ cvn: data });
+                }
+            });
+    };
+
+    componentDidMount() {
+        this.search("");
     }
 
 
@@ -55,6 +72,7 @@ export default class VehiModelList extends Component {
                         </ol>
                     </div>
                 </div>
+                <form className="col-md-12 mb-6 "  >
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-md-12">
@@ -65,19 +83,18 @@ export default class VehiModelList extends Component {
 
                                         <div className="row">
 
-                                            <form className="col-md-4 mb-6 "  >
-                                                <div className="input-group input-group-rounded col-md-16 mb-3 ">
 
-                                                    <input type="text" placeholder="cliente" name="search"
-                                                           className="form-control" ref={input => this.cliente = input}/>
+                                                <div className="input-group input-group-rounded col-md-6 mb-3 ">
 
-                                                    <button className="btn btn-primary btn-group-right" type="submit">
-                                                        <i className="ti-search"/></button>
+                                                    <input type="text" placeholder="Pesquisar Cliente" name="search"
+                                                           className="form-control" onChange={this.onChange}/>
+
+
 
                                                 </div>
-                                            </form>
 
-                                            <div className="col-md-5 mb-6 ">
+
+                                            <div className="col-md-6 mb-6 ">
                                                 <Link className="btn cur-p btn-outline-success" to="/cvnForm">
                                                     Cadastrar</Link>
 
@@ -86,25 +103,27 @@ export default class VehiModelList extends Component {
                                         <div className="table-responsive m-t-40">
                                             <table id="example23"
                                                    className="display nowrap table table-hover table-striped "
-                                                   cellSpacing="0" width="100%">
+                                                   >
                                                 <thead>
                                                 <tr>
 
                                                     <th scope="col">
                                                         Cliente</th>
                                                     <th scope="col">
-                                                        Telefone</th>
+
+                                                        Montadora</th>
                                                     <th scope="col">
-                                                        Veiculo</th>
+                                                        Modelo</th>
                                                     <th scope="col">
+
                                                         Placa</th>
                                                     <th scope="col">
                                                         Editar</th>
                                                 </tr>
                                                 </thead>
-                                                { this.state.data.map(data =>
-                                                    <cvnPrev key={data._id}{...data}/>
-                                                )}
+                                                {this.state.cvn.map(cvn => (
+                                                    <CvnPrev key={cvn._id}{...cvn}/>
+                                                ))}
                                             </table>
                                         </div>
                                     </div>
@@ -113,6 +132,7 @@ export default class VehiModelList extends Component {
                         </div>
                     </div>
                 </div>
+                </form>
             </div>
 
         )

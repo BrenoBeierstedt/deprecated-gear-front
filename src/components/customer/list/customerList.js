@@ -7,7 +7,7 @@ import  CusPrev from "./cusPrev";
 import {Link} from "react-router-dom";
 
 
-const token = localStorage.getItem('auth-token');
+
 
 const requestInfo = {
 
@@ -15,33 +15,50 @@ const requestInfo = {
 
     headers: new Headers({
 
-        'Authorization': token,
+        'Authorization': localStorage.getItem('auth-token'),
     })
 };
 
     export default class CusList extends Component {
 
-    constructor(){
-        super();
-        this.state = {data:[]};
-    };
+        token = null;
+        state = {
+            query: "",
+            customer: []
+        };
 
-    componentWillMount() {
+        onChange = e => {
+            const { value } = e.target;
+            this.setState({
+                query: value
+            });
 
-        fetch( ApiProvider.Add+'/auth/customer', requestInfo)
-            .then(res => res.json())
-            .then( data => {
-                this.setState({data:data});
+            this.search(value);
+        };
 
-            })
-            .catch(function (error) {
-                console.log(error)
-            })
-    }
+
+        search = query => {
+            const url = ApiProvider.Add +`/auth/customer/search?q=${query}`;
+            const token = {};
+            this.token = token;
+
+            fetch(url, requestInfo)
+                .then(results => results.json())
+                .then(data => {
+                    if (this.token === token) {
+                        this.setState({ customer: data });
+                    }
+                });
+        };
+
+        componentDidMount() {
+            this.search("");
+        }
 
 
     render() {
         return (
+
 
             <div className="page-wrapper">
 
@@ -55,6 +72,7 @@ const requestInfo = {
                         </ol>
                     </div>
                 </div>
+                <form className="col-md-12 mb-6 "  >
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-md-12">
@@ -65,17 +83,15 @@ const requestInfo = {
 
                                         <div className="row">
 
-                                            <form className="col-md-4 mb-6 "  >
-                                                <div className="input-group input-group-rounded col-md-16 mb-3 ">
+                                                <div className="input-group input-group-rounded col-md-6 mb-3 ">
 
-                                                    <input type="text" placeholder="cliente" name="search"
-                                                           className="form-control" ref={input => this.cliente = input}/>
+                                                    <input type="text" placeholder="Pesquisar Cliente" name="search"
+                                                           className="form-control" onChange={this.onChange}/>
 
-                                                    <button className="btn btn-primary btn-group-right" type="submit">
-                                                        <i className="ti-search"/></button>
+
 
                                                 </div>
-                                            </form>
+
 
                                             <div className="col-md-5 mb-6 ">
                                                 <Link className="btn cur-p btn-outline-success" to="/cusForm">
@@ -83,6 +99,7 @@ const requestInfo = {
 
                                             </div>
                                         </div>
+
                                         <div className="table-responsive m-t-40">
                                             <table id="example23"
                                                    className="display nowrap table table-hover table-striped "
@@ -104,18 +121,22 @@ const requestInfo = {
                                                 </th>
                                             </tr>
                                             </thead>
-                                            { this.state.data.map(data =>
-                                                <CusPrev key={data._id}{...data}/>
-                                            )}
+                                                {this.state.customer.map(cus => (
+                                                <CusPrev key={cus._id}{...cus}/>
+                                                ))}
                                         </table>
+                                    </div>
                                     </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
-                </div>
-            </div>
+    </form>
+
+    </div>
+
 
         )
     }

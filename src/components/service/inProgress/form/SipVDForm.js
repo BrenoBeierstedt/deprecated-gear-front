@@ -1,47 +1,73 @@
 import React, {Component} from "react";
 import {Link} from "react-router-dom";
 import history from "../../../history";
+import CreatableSelect from 'react-select/lib/Creatable';
 
 import CusNVhcCard from "../../../customer/customerData/cusNVhcCard";
 
 import ApiProvider from './../../../../gearUtils/util'
+import CusPrev from "../../../customer/list/customerList";
 
 const token = localStorage.getItem('auth-token');
+let arr = "";
 
-
+global.SipID = null;
 
 
 export default class SipVDForm extends Component {
+    state = {
+        query: "",
+        sip:[],
+        SipIss:[],
+        SipObs:[],
+        SipAcc:[],
+        SipDgn:[],
 
-    constructor(){
-        super();
-        this.state = {msg:''};
+    };
+
+    constructor(props) {
+        super(props);
 
     }
+    handleChange = (newValue, actionMeta) => {
+
+        this.setState({SipIss:newValue})
+
+
+    };
+    handleChangeAcc = (newValue, actionMeta) => {
+
+        this.setState({SipAcc:newValue})
+
+    };
+
+    handleChangeObs = (newValue, actionMeta) => {
+
+        this.setState({SipObs:newValue})
+
+
+    };
+    handleChangeDgn = (newValue, actionMeta) => {
+
+        this.setState({SipDgn:newValue})
+
+
+    };
+
 
     send(event) {
         event.preventDefault();
 
         const requestInfo = {
 
-            method: 'POST',
+            method: 'PUT',
             body: JSON.stringify({
-                CusNam: this.CusNam.value,
-                CusSec: this.CusSec.value,
-                CusBdy: this.CusBdy.value,
-                CusTyp: this.CusTyp.value,
-                CusEma: this.CusEma.value,
-                TelAco: this.TelAco.value,
-                TelNum: this.TelNum.value,
-                Cf1Aco: this.Cf1Aco.value,
-                Cf1Num: this.Cf1Num.value,
-                CusAdd:[{
-                    AddStr: this.AddStr.value,
-                    AddZip: this.AddZip.value,
-                    AddCit: this.AddCit.value,
-                    AddSta: this.AddSta.value,
-                    AddCom: this.AddCom.value,
-                } ]
+                SipAtk: this.SipAtk.value,
+                SipAcc: this.state.SipAcc,
+                SipObs: this.state.SipObs,
+                SipDgn: this.state.SipDgn,
+                SipOdm: this.SipOdm.value,
+                SipIss: this.state.SipIss,
 
             }),
             headers: new Headers({
@@ -49,7 +75,8 @@ export default class SipVDForm extends Component {
                 'Authorization': token,
             })
         };
-        fetch(ApiProvider.Add+'/auth/customer/', requestInfo)
+        let url =ApiProvider.Add+'/auth/sip/'+ global.SipID;
+        fetch(url, requestInfo)
             .then(res => {
 
                 if(res.ok){
@@ -60,13 +87,35 @@ export default class SipVDForm extends Component {
             })
             .then(token =>{
 
-                history.push('/cusList')
+                history.push('/ServInProList')
 
             })
             .catch(error=>{
                 this.setState({msg:error.message})
             })
     };
+    componentWillMount() {
+
+        const requestInfoS = {
+
+            method: 'GET',
+
+            headers: new Headers({
+
+                'Authorization': localStorage.getItem('auth-token'),
+            })
+        };
+
+
+        fetch(ApiProvider.Add +"/auth/sip/19", requestInfoS)
+            .then(res => res.json())
+            .then( data => {
+                arr = data;
+                this.setState({sip:arr})
+                global.SipID = this.state.sip._id
+            })
+
+    }
 
     render() {
         return(
@@ -85,10 +134,14 @@ export default class SipVDForm extends Component {
                 </div>
                 <div className="masonry-item col-md-10">
                     <div className="bgc-white p-20 bd">
+                        <form  id="needs-validation" onSubmit={this.send.bind(this)} >
+                            <div className="mT-30">
 
-                        <div className="mT-30">
-<CusNVhcCard/>
-                            <form  id="needs-validation" onSubmit={this.send.bind(this)} >
+
+                                <CusNVhcCard SipCus={this.state.sip}/>
+
+
+
 
                                 <div className="card ">
                                     <div className="card-body">
@@ -101,7 +154,7 @@ export default class SipVDForm extends Component {
                                             <div className="col-md-3 mb-3">
 
                                                 <label className="fw-500" htmlFor="validationCustom06">Odômetro</label>
-                                                <input type="number" className="form-control" id="validationCustom06"/>
+                                                <input type="number" className="form-control" id="validationCustom06"ref={input => this.SipOdm = input}/>
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <div>
@@ -112,7 +165,7 @@ export default class SipVDForm extends Component {
                                                 <div className="btn-group text-center">
                                                     <div>
                                                         <select id="question_type"
-                                                                className="btn  dropdown-toggle">
+                                                                className="btn  dropdown-toggle" ref={input => this.SipAtk = input}>
                                                             <option name="zero">0</option>
                                                             <option name="q">1/4</option>
                                                             <option name="h">1/2</option>
@@ -132,8 +185,10 @@ export default class SipVDForm extends Component {
                                                 <div>
                                                     <label className="fw-500 text-center">Acessórios</label>
                                                 </div>
-                                                <div className="tags-input fw-500" data-name="tags-input">
-                                                </div>
+                                                <CreatableSelect
+                                                    isMulti
+                                                    onChange={this.handleChangeAcc}
+                                                />
                                             </div>
                                         </div>
                                         <div className="row">
@@ -141,66 +196,71 @@ export default class SipVDForm extends Component {
                                                 <div>
                                                     <label className="fw-500 text-center">Possíveis defeitos</label>
                                                 </div>
-                                                <div className="tags-input fw-500" data-name="tags-input">
-                                                </div>
+                                                <CreatableSelect
+                                                    isMulti
+                                                    onChange={this.handleChange}
+                                                />
                                             </div>
                                         </div>
-                                        <div className="row">
-                                            <div className="col-md-9 mb-3">
-                                                <form method="post">
 
-                                                    <label className="fw-500"
-                                                           htmlFor="validationCustom06">Observações</label>
-                                                    <textarea className="textarea_editor form-control" rows="15"
-                                                              placeholder="Insira texto ..."
-                                                    />
+                                    <div className="row">
+                                        <div className="col-md-9 mb-3">
 
-                                                </form>
-                                            </div>
+
+                                            <label className="fw-500"
+                                                   htmlFor="validationCustom06">Observações</label>
+                                            <CreatableSelect
+                                                isMulti
+                                                onChange={this.handleChangeObs}
+                                            />
+
+
                                         </div>
                                     </div>
                                 </div>
-                                <div className="card ">
-                                    <div className="card-body">
-                                        <div className="card-title">
-                                            <h4>Diagnóstico </h4>
+                            </div>
+                            <div className="card ">
+                                <div className="card-body">
+                                    <div className="card-title">
+                                        <h4>Diagnóstico </h4>
 
+                                    </div>
+
+                                    <div className="row">
+
+                                        <div className="col-md-9 mb-3">
+
+                                            <CreatableSelect
+                                                isMulti
+                                                onChange={this.handleChangeDgn}
+                                            />
                                         </div>
 
-                                        <div className="row">
-
-                                            <div className="col-md-9 mb-3">
-                                                <div>
-                                                    <label className="fw-500 text-center">Possíveis defeitos</label>
-                                                </div>
-                                                <div className="tags-input fw-500" data-name="tags-input">
-                                                </div>
-                                            </div>
 
 
 
-
-
-
-                                        </div>
 
 
                                     </div>
-                                </div>
-                                <div className="text-right">
-                                    <Link className="btn cur-p btn-info m-b-10 m-l-5" to="/cusList"> Cancelar</Link>
 
-
-                                    <button className="btn cur-p btn-success m-b-10 m-l-5" type="submit">Salvar</button>
 
                                 </div>
-                            </form>
+                            </div>
+                            <div className="text-right">
+                                <Link className="btn cur-p btn-info m-b-10 m-l-5" to="/cusList"> Cancelar</Link>
 
 
-                        </div>
+                                <button className="btn cur-p btn-success m-b-10 m-l-5" type="submit">Salvar</button>
+
+                            </div>
+
+
+
                     </div>
-                </div>
+                </form>
             </div>
-        )
+    </div>
+    </div>
+    )
     }
 }

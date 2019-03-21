@@ -1,4 +1,4 @@
-
+import 'popper.js/dist/popper.min.js';
 import {Route, BrowserRouter,  Router, Switch} from 'react-router-dom';
 
 import React  from "react";
@@ -24,6 +24,8 @@ import ServList from "./components/service/commonService/list/csvList";
 import UserForm from "./components/user/userForm";
 import VehiTranfer from "./components/vehicle/misc/vehicleTransfer";
 import VehiModelList from "./components/vehicle/models/vehicleModelList";
+import MnfModelList from "./components/vehicle/models/mnf/MnfModelList";
+
 import logout from "./components/login/logout";
 import VehiModForm from "./components/vehicle/models/vehicleModelForm";
 import PartsList from "./components/inventory/parts/list/partsList";
@@ -33,7 +35,10 @@ import history from "./components/history";
 import SipVDForm from "./components/service/inProgress/form/SipVDForm";
 import BudgetForm from './components/service/inProgress/budget/budgetForm';
 import TimeLine from './components/service/inProgress/timeLine/timeLine';
-import Test from "./components/customer/customerData/test";
+import Test from "./components/customer/test/test";
+import 'jquery/dist/jquery.min.js';
+
+
 
 
 const Main = () => (
@@ -49,7 +54,9 @@ const Main = () => (
 <Switch>
     <Route exact path="/login"   component={Login}/>
     <PrivateRoute exact path='/test'  component={Test}/>
-<PrivateRoute exact path='/'  component={App}/>
+    <PrivateRoute exact path='/'  component={App}/>
+
+<PrivateRoute exact path='/mnflist'  component={MnfModelList}/>
 <PrivateRoute exact path='/timeline'  component={TimeLine}/>
 <PrivateRoute exact path='/budgetForm'  component={BudgetForm}/>
 <PrivateRoute exact path='/SipVDForm'  component={SipVDForm}/>
@@ -78,6 +85,9 @@ const Main = () => (
 <PrivateRoute exact path='/partsForm' component={PartsForm}/>
 <PrivateRoute exact path='/cvnForm' component={cvnForm}/>
 <PrivateRoute exact path='/cvnList' component={cvnList}/>
+
+
+
 
 
 </Switch>

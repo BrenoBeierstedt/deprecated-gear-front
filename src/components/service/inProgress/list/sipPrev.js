@@ -5,11 +5,13 @@ const CusPrev = props =>
 
     <tbody>
     <tr>
+        <td>{props._id}</td>
 
         <td>{props.SipCus}</td>
-        <td>{("("+props.Cf1Aco+")" +props.Cf1Num)}</td>
-        <td>{props.SipVhc}</td>
+        <td>{props.MdlNam}</td>
         <td>{props.CvnPlt}</td>
+        <td>{props.svcSts}</td>
+
 
 
 

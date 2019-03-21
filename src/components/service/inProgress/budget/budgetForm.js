@@ -7,8 +7,8 @@ import CusNVhcCard from './../../../customer/customerData/cusNVhcCard'
 
 const token = localStorage.getItem('auth-token');
 
-
-
+let arr =[]
+global.SipID = null
 
 export default class budgetForm extends Component {
 
@@ -16,6 +16,7 @@ export default class budgetForm extends Component {
         parts: [{'prtQty':"", "prtDes":"", "prtPrc":""}],
         product: [{'proQty':"", "proDescription":"", "proPrice":""}],
         service: [{'svcDescription':"", "svcPrice":"", "svcSts":"1"}],
+        sip:[],
 
     };
     handleChange = (e) => {
@@ -91,7 +92,7 @@ export default class budgetForm extends Component {
 
         const requestInfo = {
 
-            method: 'POST',
+            method: 'PUT',
             body: JSON.stringify({
                 parts: this.state.parts,
                 product: this.state.product,
@@ -106,7 +107,8 @@ export default class budgetForm extends Component {
                 'Authorization': token,
             })
         };
-        fetch(ApiProvider.Add+'/auth/sip/', requestInfo)
+        let url =ApiProvider.Add+'/auth/sip/'+ global.SipID;
+        fetch(url, requestInfo)
             .then(res => {
 
                 if(res.ok){
@@ -125,7 +127,28 @@ export default class budgetForm extends Component {
             })
     };
 
+    componentWillMount() {
 
+        const requestInfoS = {
+
+            method: 'GET',
+
+            headers: new Headers({
+
+                'Authorization': localStorage.getItem('auth-token'),
+            })
+        };
+
+
+        fetch(ApiProvider.Add +"/auth/sip/19", requestInfoS)
+            .then(res => res.json())
+            .then( data => {
+                arr = data;
+                this.setState({sip:arr})
+                global.SipID = this.state.sip._id
+            })
+
+    }
     render() {
         let { parts, product,service} = this.state;
 
@@ -153,7 +176,7 @@ export default class budgetForm extends Component {
                         <div className="bgc-white p-20 bd">
 
                             <div className="mT-30">
-                                <CusNVhcCard/>
+                                <CusNVhcCard SipCus={this.state.sip}/>
                                 <div className="card ">
                                     <div className="card-body">
                                         <div className="card-title">

@@ -1,11 +1,10 @@
 // Importando o React
 import React ,{Component} from "react";
 
-import ApiProvider from '../../../gearUtils/util'
+import ApiProvider from '../../../../gearUtils/util'
 
-import  VhpPrev from "./vhcPrev";
+import  MnfPrev from "./mnfPrev";
 import {Link} from "react-router-dom";
-import CusPrev from "../../customer/list/customerList";
 
 
 const token = localStorage.getItem('auth-token');
@@ -20,12 +19,12 @@ const requestInfo = {
     })
 };
 
-export default class VehiModelList extends Component {
+export default class MnfModelList extends Component {
 
     token = null;
     state = {
         query: "",
-        vhp: []
+        mnf: []
     };
 
     onChange = e => {
@@ -39,7 +38,7 @@ export default class VehiModelList extends Component {
 
 
     search = query => {
-        const url = ApiProvider.Add +`/auth/vhp/search?q=${query}`;
+        const url = ApiProvider.Add +`/auth/mnf/search?q=${query}`;
         const token = {};
         this.token = token;
 
@@ -104,9 +103,7 @@ export default class VehiModelList extends Component {
                                                 <thead>
                                                 <tr>
 
-                                                    <th scope="col">
-                                                        Modelo
-                                                    </th>
+
                                                     <th scope="col">
                                                         Fabricante
                                                     </th>
@@ -116,8 +113,8 @@ export default class VehiModelList extends Component {
                                                     </th>
                                                 </tr>
                                                 </thead>
-                                                {this.state.vhp.map(vhp => (
-                                                    <VhpPrev key={vhp._id}{...vhp}/>
+                                                {this.state.mnf.map(mnf => (
+                                                    <MnfPrev key={mnf._id}{...mnf}/>
                                                 ))}
                                             </table>
                                         </div>

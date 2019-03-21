@@ -1,10 +1,11 @@
 // Importando o React
 import React ,{Component} from "react";
 
-
+import ApiProvider from './../../../../gearUtils/util'
 
 import  ProPrev from "./proPrev";
 import {Link} from "react-router-dom";
+import CusPrev from "../../../customer/list/customerList";
 
 
 const token = localStorage.getItem('auth-token');
@@ -22,26 +23,43 @@ const requestInfo = {
 
     export default class ProductList extends Component {
 
-    constructor(){
-        super();
-        this.state = {data:[]};
-    };
+        token = null;
+        state = {
+            query: "",
+            product: []
+        };
 
-    componentWillMount() {
+        onChange = e => {
+            const { value } = e.target;
+            this.setState({
+                query: value
+            });
 
-        fetch('http://187.87.109.66:3005/auth/product', requestInfo)
-            .then(res => res.json())
-            .then( data => {
-                this.setState({data:data});
-
-            })
-            .catch(function (error) {
-                console.log(error)
-            })
-    }
+            this.search(value);
+        };
 
 
-    render() {
+        search = query => {
+            const url = ApiProvider.Add +`/auth/product/search?q=${query}`;
+            const token = {};
+            this.token = token;
+
+            fetch(url, requestInfo)
+                .then(results => results.json())
+                .then(data => {
+                    if (this.token === token) {
+                        this.setState({ product: data });
+                    }
+                });
+        };
+
+        componentDidMount() {
+            this.search("");
+        }
+
+
+
+        render() {
         return (
 
             <div className="page-wrapper">
@@ -69,11 +87,8 @@ const requestInfo = {
                                             <form className="col-md-4 mb-6 "  >
                                                 <div className="input-group input-group-rounded col-md-16 mb-3 ">
 
-                                                    <input type="text" placeholder="Descrição" name="search"
-                                                           className="form-control" ref={input => this.cliente = input}/>
-
-                                                    <button className="btn btn-primary btn-group-right" type="submit">
-                                                        <i className="ti-search"/></button>
+                                                    <input type="text" placeholder="Pesquisar Produto" name="search"
+                                                           className="form-control" onChange={this.onChange}/>
 
                                                 </div>
                                             </form>
@@ -106,9 +121,9 @@ const requestInfo = {
                                                 </th>
                                             </tr>
                                             </thead>
-                                            { this.state.data.map(data =>
-                                                <ProPrev key={data._id}{...data}/>
-                                            )}
+                                                {this.state.product.map(product => (
+                                                    <ProPrev key={product._id}{...product}/>
+                                                ))}
                                         </table>
                                     </div>
                                     </div>
