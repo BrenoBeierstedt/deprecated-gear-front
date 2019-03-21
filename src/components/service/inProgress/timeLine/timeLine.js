@@ -9,7 +9,9 @@ import {Link} from "react-router-dom";
 
 
 const token = localStorage.getItem('auth-token');
+let arr = "";
 
+global.SipID = null;
 const requestInfo = {
 
     method: 'GET',
@@ -43,20 +45,32 @@ export default class TimeLine extends Component {
 
     constructor(){
         super();
-        this.state = {data:[]};
+        this.state = {
+            data:[],
+        sip:[]};
     };
 
     componentWillMount() {
 
-        fetch( ApiProvider.Add+'/auth/customer', requestInfo)
+        const requestInfoS = {
+
+            method: 'GET',
+
+            headers: new Headers({
+
+                'Authorization': localStorage.getItem('auth-token'),
+            })
+        };
+
+
+        fetch(ApiProvider.Add +"/auth/sip/19", requestInfoS)
             .then(res => res.json())
             .then( data => {
-                this.setState({data:data});
+                arr = data;
+                this.setState({sip:arr})
+                global.SipID = this.state.sip._id
+            })
 
-            })
-            .catch(function (error) {
-                console.log(error)
-            })
     }
 
 
@@ -78,7 +92,8 @@ export default class TimeLine extends Component {
                 <div className="mT-30">
                     <div className="container-fluid">
                         <div className="col-md-12">
-                            <CusNVhcCard/>
+                            <CusNVhcCard SipCus={this.state.sip}/>
+
                         </div>
                         <div className="row">
 
