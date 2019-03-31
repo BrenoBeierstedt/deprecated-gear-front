@@ -54,6 +54,10 @@ export default class App extends Component {
 
     componentDidMount() {
         this.search("");
+        if(!localStorage.getItem("Refresh")){
+            localStorage.setItem("Refresh","ok");
+            window.location.reload();
+        }
     }
     render() {
 
