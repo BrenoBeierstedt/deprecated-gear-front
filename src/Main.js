@@ -35,9 +35,10 @@ import history from "./components/history";
 import SipVDForm from "./components/service/inProgress/form/SipVDForm";
 import BudgetForm from './components/service/inProgress/budget/budgetForm';
 import TimeLine from './components/service/inProgress/timeLine/timeLine';
-import Test from "./components/customer/test/test";
+import List from "./components/customer/test/List";
 import 'jquery/dist/jquery.min.js';
 
+import modalTest from "./components/modalTest/modal";
 
 
 
@@ -52,8 +53,11 @@ const Main = () => (
 
 
 <Switch>
+
+    <PrivateRoute exact path='/modalTest'  component={modalTest}/>
+
     <Route exact path="/login"   component={Login}/>
-    <PrivateRoute exact path='/test'  component={Test}/>
+    <Route exact path='/list'  component={List}/>
     <PrivateRoute exact path='/'  component={App}/>
 
 <PrivateRoute exact path='/mnflist'  component={MnfModelList}/>

@@ -25,7 +25,7 @@
         },
 
         openPage: function(index) {
-            this._grid.refresh();
+            Mod.refresh();
         },
 
         loadParams: function() {
@@ -34,12 +34,12 @@
 
         sort: function() {
             this._grid._sortData();
-            this._grid.refresh();
+            Mod.refresh();
             return $.Deferred().resolve().promise();
         },
 
         reset: function() {
-            this._grid.refresh();
+            Mod.refresh();
             return $.Deferred().resolve().promise();
         },
 
@@ -50,7 +50,7 @@
         finishInsert: function(insertedItem) {
             var grid = this._grid;
             grid.option("data").push(insertedItem);
-            grid.refresh();
+            Mod.refresh();
         },
 
         finishDelete: function(deletedItem, deletedItemIndex) {

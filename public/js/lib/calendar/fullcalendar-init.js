@@ -4,7 +4,7 @@
 
     var CalendarApp = function() {
         this.$body = $("body")
-        this.$modal = $('#event-modal'),
+        this.$modal = $('#event-modalTst'),
         this.$event = ('#external-events div.external-event'),
         this.$calendar = $('#calendar'),
         this.$saveCategoryBtn = $('.save-category'),
@@ -40,26 +40,26 @@
             var form = $("<form></form>");
             form.append("<label>Change event name</label>");
             form.append("<div class='input-group'><input class='form-control' type=text value='" + calEvent.title + "' /><span class='input-group-btn'><button type='submit' class='btn btn-success waves-effect waves-light'><i class='fa fa-check'></i> Save</button></span></div>");
-            $this.$modal.modal({
+            $this.$modal.customerList({
                 backdrop: 'static'
             });
-            $this.$modal.find('.delete-event').show().end().find('.save-event').hide().end().find('.modal-body').empty().prepend(form).end().find('.delete-event').unbind('click').on("click", function () {
+            $this.$modal.find('.delete-event').show().end().find('.save-event').hide().end().find('.modalTst-body').empty().prepend(form).end().find('.delete-event').unbind('click').on("click", function () {
                 $this.$calendarObj.fullCalendar('removeEvents', function (ev) {
                     return (ev._id == calEvent._id);
                 });
-                $this.$modal.modal('hide');
+                $this.$modal.customerList('hide');
             });
             $this.$modal.find('form').on('submit', function () {
                 calEvent.title = form.find("input[type=text]").val();
                 $this.$calendarObj.fullCalendar('updateEvent', calEvent);
-                $this.$modal.modal('hide');
+                $this.$modal.customerList('hide');
                 return false;
             });
     },
     /* on select */
     CalendarApp.prototype.onSelect = function (start, end, allDay) {
         var $this = this;
-            $this.$modal.modal({
+            $this.$modal.customerList({
                 backdrop: 'static'
             });
             var form = $("<form></form>");
@@ -75,7 +75,7 @@
                 .append("<option value='bg-pink'>Pink</option>")
                 .append("<option value='bg-info'>Info</option>")
                 .append("<option value='bg-warning'>Warning</option></div></div>");
-            $this.$modal.find('.delete-event').hide().end().find('.save-event').show().end().find('.modal-body').empty().prepend(form).end().find('.save-event').unbind('click').on("click", function () {
+            $this.$modal.find('.delete-event').hide().end().find('.save-event').show().end().find('.modalTst-body').empty().prepend(form).end().find('.save-event').unbind('click').on("click", function () {
                 form.submit();
             });
             $this.$modal.find('form').on('submit', function () {
@@ -91,7 +91,7 @@
                         allDay: false,
                         className: categoryClass
                     }, true);  
-                    $this.$modal.modal('hide');
+                    $this.$modal.customerList('hide');
                 }
                 else{
                     alert('You have to give a title to your event');

@@ -314,7 +314,7 @@ let copyOptionsForAsyncVhp = async (e)=> {
 
     });
 
-}
+};
 class App1 extends React.Component {
 
     state={

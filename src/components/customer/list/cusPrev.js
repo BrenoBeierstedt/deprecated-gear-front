@@ -1,36 +1,64 @@
-import React from "react";
+import React, {Component} from "react";
 import {Link} from "react-router-dom";
-
-const CusPrev = props =>
-
-    <tbody>
-    <tr>
-
-        <td>{props.CusNam}</td>
-        <td>{("("+props.Cf1Aco+")" +props.Cf1Num)}</td>
-        <td>{props.CusEma}</td>
+import Modal from "./mod";
 
 
 
-        <td>
-            <Link to={"/cusForm"}
-               className="td-n c-deep-purple-500 cH-blue-500 fsz-md p-5">
-                <i className="ti-pencil">
-                </i>
-            </Link>
 
-            <Link to={"/VehiCusForm"}
-               className="td-n c-red-500 cH-blue-500 fsz-md p-5">
-                <i className="ti-car">
-                </i>
-            </Link>
-        </td>
+export default class CusPrev extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            visible: false,
+
+        }
+    }
+
+    openModal() {
+        this.setState({
+            visible: true
+        });
+    }
+
+    closeModal = () => {
+        this.setState({
+            visible: false
+        });
+    };
 
 
-    </tr>
+    render() {
+        return (
+
+            <tbody>
+            <tr>
+
+                <td>{this.props.CusNam}</td>
+                <td>{("(" + this.props.Cf1Aco + ")" + this.props.Cf1Num)}</td>
+                <td>{this.props.CusEma}</td>
+
+
+                <td>
+
+                    <a href="javascript:void(0)" className="ti-pencil " value="Open" onClick={() => this.openModal()}/>
 
 
 
-    </tbody>;
+                    <Link to={"/VehiCusForm"}
+                          className="td-n c-red-500 cH-blue-500 fsz-md p-5">
+                        <i className="ti-car">
+                        </i>
+                    </Link>
+                </td>
 
-export default CusPrev;
+
+            </tr>
+            <Modal openModal={this.state.visible} cus={this.props} callback={this.closeModal}/>
+
+            </tbody>
+        )
+    }
+}
+
+

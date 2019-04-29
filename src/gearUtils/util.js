@@ -1,7 +1,7 @@
 
 
 module.exports = Object.freeze({
-    Add : 'http://187.87.109.66:3005',
+    Add : 'http://189.28.205.121:3005',
 
 });
 

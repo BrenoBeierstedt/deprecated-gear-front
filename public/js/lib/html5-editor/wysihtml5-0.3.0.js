@@ -2363,7 +2363,7 @@ rangy.createModule("DomUtil", function(api, module) {
 
         WrappedRange = function(textRange) {
             this.textRange = textRange;
-            this.refresh();
+            Mod.refresh();
         };
 
         WrappedRange.prototype = new DomRange(document);
@@ -2770,7 +2770,7 @@ rangy.createModule("DomUtil", function(api, module) {
         if (sel) {
             sel.nativeSelection = nativeSel;
             sel.docSelection = docSel;
-            sel.refresh(win);
+            Mod.refresh(win);
         } else {
             sel = new WrappedSelection(nativeSel, docSel, win);
             win[windowPropertyName] = sel;
@@ -2815,7 +2815,7 @@ rangy.createModule("DomUtil", function(api, module) {
             endRange.collapseToPoint(range.endContainer, range.endOffset);
             sel.nativeSelection.addRange(getNativeRange(endRange));
             sel.nativeSelection.extend(range.startContainer, range.startOffset);
-            sel.refresh();
+            Mod.refresh();
         };
 
         if (selectionHasRangeCount) {
@@ -3002,7 +3002,7 @@ rangy.createModule("DomUtil", function(api, module) {
         return false;
     }
 
-    selProto.refresh = function(checkForChanges) {
+    Mod.refresh = function(checkForChanges) {
         var oldRanges = checkForChanges ? this._ranges.slice(0) : null;
         refreshSelection(this);
         if (checkForChanges) {

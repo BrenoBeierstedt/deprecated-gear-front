@@ -43,21 +43,21 @@
         "link": function(locale, options) {
             var size = (options && options.size) ? ' btn-'+options.size : '';
             return "<li>" +
-              "<div class='bootstrap-wysihtml5-insert-link-modal modal fade bs-example-modal-lg'>" +
-                "<div class='modal-dialog modal-lg'>" +
-					"<div class='modal-content'>" +
-				"<div class='modal-header'>" +
-                  "<a class='close' data-dismiss='modal'></a>" +
+              "<div class='bootstrap-wysihtml5-insert-link-modalTst modalTst fade bs-example-modalTst-lg'>" +
+                "<div class='modalTst-dialog modalTst-lg'>" +
+					"<div class='modalTst-content'>" +
+				"<div class='modalTst-header'>" +
+                  "<a class='close' data-dismiss='modalTst'></a>" +
                   "<h3>" + locale.link.insert + "</h3>" +
                 "</div>" +
-                "<div class='modal-body'>" +
+                "<div class='modalTst-body'>" +
                   "<div class='form-group'>" +
 				  "<input value='http://' class='bootstrap-wysihtml5-insert-link-url form-control' type='text'>" +
                 "</div>" +
 				"</div>" +
-                "<div class='modal-footer'>" +
-                  "<a href='#' class='btn btn-inverse' data-dismiss='modal'>" + locale.link.cancel + "</a>" +
-                  "<a href='#' class='btn btn-primary' data-dismiss='modal'>" + locale.link.insert + "</a>" +
+                "<div class='modalTst-footer'>" +
+                  "<a href='#' class='btn btn-inverse' data-dismiss='modalTst'>" + locale.link.cancel + "</a>" +
+                  "<a href='#' class='btn btn-primary' data-dismiss='modalTst'>" + locale.link.insert + "</a>" +
                 "</div>" +
               "</div>" +
 			  "</div>" +
@@ -69,21 +69,21 @@
         "image": function(locale, options) {
             var size = (options && options.size) ? ' btn-'+options.size : '';
             return "<li>" +
-              "<div class='bootstrap-wysihtml5-insert-image-modal modal fade bs-example-modal-lg'>" +
-                "<div class='modal-dialog modal-lg'>" +
-					"<div class='modal-content'>" +
-				"<div class='modal-header'>" +
-                  "<a class='close' data-dismiss='modal'></a>" +
+              "<div class='bootstrap-wysihtml5-insert-image-modalTst modalTst fade bs-example-modalTst-lg'>" +
+                "<div class='modalTst-dialog modalTst-lg'>" +
+					"<div class='modalTst-content'>" +
+				"<div class='modalTst-header'>" +
+                  "<a class='close' data-dismiss='modalTst'></a>" +
                   "<h3>" + locale.image.insert + "</h3>" +
                 "</div>" +
-                "<div class='modal-body'>" +
+                "<div class='modalTst-body'>" +
                  "<div class='form-group'>" +
 				  "<input value='http://' class='bootstrap-wysihtml5-insert-image-url  m-wrap large form-control' type='text'>" +
                 "</div>" +
 				"</div>" +
-                "<div class='modal-footer'>" +
-                  "<a href='#' class='btn' data-dismiss='modal'>" + locale.image.cancel + "</a>" +
-                  "<a href='#' class='btn  green btn-primary' data-dismiss='modal'>" + locale.image.insert + "</a>" +
+                "<div class='modalTst-footer'>" +
+                  "<a href='#' class='btn' data-dismiss='modalTst'>" + locale.image.cancel + "</a>" +
+                  "<a href='#' class='btn  green btn-primary' data-dismiss='modalTst'>" + locale.image.insert + "</a>" +
                 "</div>" +
               "</div>" +
 			  "</div>" +
@@ -234,7 +234,7 @@
 
         initInsertImage: function(toolbar) {
             var self = this;
-            var insertImageModal = toolbar.find('.bootstrap-wysihtml5-insert-image-modal');
+            var insertImageModal = toolbar.find('.bootstrap-wysihtml5-insert-image-modalTst');
             var urlInput = insertImageModal.find('.bootstrap-wysihtml5-insert-image-url');
             var insertButton = insertImageModal.find('a.btn-primary');
             var initialValue = urlInput.val();
@@ -249,7 +249,7 @@
             urlInput.keypress(function(e) {
                 if(e.which == 13) {
                     insertImage();
-                    insertImageModal.modal('hide');
+                    insertImageModal.customerList('hide');
                 }
             });
 
@@ -267,8 +267,8 @@
                 var activeButton = $(this).hasClass("wysihtml5-command-active");
 
                 if (!activeButton) {
-                    insertImageModal.modal('show');
-                    insertImageModal.on('click.dismiss.modal', '[data-dismiss="modal"]', function(e) {
+                    insertImageModal.customerList('show');
+                    insertImageModal.on('click.dismiss.customerList.js', '[data-dismiss="modalTst"]', function(e) {
                         e.stopPropagation();
                     });
                     return false;
@@ -281,7 +281,7 @@
 
         initInsertLink: function(toolbar) {
             var self = this;
-            var insertLinkModal = toolbar.find('.bootstrap-wysihtml5-insert-link-modal');
+            var insertLinkModal = toolbar.find('.bootstrap-wysihtml5-insert-link-modalTst');
             var urlInput = insertLinkModal.find('.bootstrap-wysihtml5-insert-link-url');
             var insertButton = insertLinkModal.find('a.btn-primary');
             var initialValue = urlInput.val();
@@ -301,7 +301,7 @@
             urlInput.keypress(function(e) {
                 if(e.which == 13) {
                     insertLink();
-                    insertLinkModal.modal('hide');
+                    insertLinkModal.customerList('hide');
                 }
             });
 
@@ -319,8 +319,8 @@
                 var activeButton = $(this).hasClass("wysihtml5-command-active");
 
                 if (!activeButton) {
-                    insertLinkModal.appendTo('body').modal('show');
-                    insertLinkModal.on('click.dismiss.modal', '[data-dismiss="modal"]', function(e) {
+                    insertLinkModal.appendTo('body').customerList('show');
+                    insertLinkModal.on('click.dismiss.customerList.js', '[data-dismiss="modalTst"]', function(e) {
                         e.stopPropagation();
                     });
                     return false;

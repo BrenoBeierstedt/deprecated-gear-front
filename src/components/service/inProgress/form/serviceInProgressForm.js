@@ -61,7 +61,8 @@ export default class ServInProForm extends Component {
             vehicle: [],
             isSelected: false,
             CusCod:"",
-            svcSts:"Cadastro Inicial"
+            svcSts:"Cadastro Inicial",
+            SipStt:"IPG"
         };
     }
     send(event) {
@@ -79,6 +80,7 @@ event.preventDefault();
 
                 MdlNam: this.state.vehicle.MdlNam,
                 svcSts:this.state.svcSts,
+                SipStt:this.state.SipStt,
 
 
             }),
