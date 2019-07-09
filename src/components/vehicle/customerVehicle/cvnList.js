@@ -1,7 +1,7 @@
 // Importando o React
 import React ,{Component} from "react";
 
-import ApiProvider from '../../../gearUtils/util'
+import ApiProvider from '../../../gearUtils/apiMsc'
 
 import  CvnPrev from "./cvnPrev";
 import {Link} from "react-router-dom";
@@ -72,11 +72,9 @@ export default class VehiModelList extends Component {
                         </ol>
                     </div>
                 </div>
-                <form className="col-md-12 mb-6 "  >
-                <div className="container-fluid">
-                    <div className="row">
-                        <div className="col-md-12">
-                            <div className="bgc-white bd bdrs-3 p-20 mB-20">
+                <div className="col-md-12">
+                    <div className="row bg-white m-l-0 m-r-0 box-shadow ">
+                        <div className="col-lg-12  ">
                                 <div className="card ">
                                     <div className="card-body">
 
@@ -86,7 +84,7 @@ export default class VehiModelList extends Component {
 
                                                 <div className="input-group input-group-rounded col-md-6 mb-3 ">
 
-                                                    <input type="text" placeholder="Pesquisar Cliente" name="search"
+                                                    <input type="text" placeholder="Pesquisar Placa" name="search"
                                                            className="form-control" onChange={this.onChange}/>
 
 
@@ -132,8 +130,6 @@ export default class VehiModelList extends Component {
                         </div>
                     </div>
                 </div>
-                </form>
-            </div>
 
         )
     }

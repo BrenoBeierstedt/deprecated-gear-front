@@ -1,19 +1,10 @@
 import React, {Component} from "react";
 import {Link} from "react-router-dom";
 import history from "../../../history";
-
-
-import ApiProvider from './../../../../gearUtils/util'
-
-const token = localStorage.getItem('auth-token');
-
-
+import {fetchApi} from '../../../../gearUtils/fetch/fetch'
 
 
 export default class PartsForm extends Component {
-
-
-
 
     constructor(){
         super();
@@ -24,10 +15,9 @@ export default class PartsForm extends Component {
     send(event) {
         event.preventDefault();
 
-        const requestInfo = {
+        const req= {
 
-            method: 'POST',
-            body: JSON.stringify({
+            body: {
 
                 PrtDes: this.PrtDes.value,
                 PrtPvd: this.PrtPvd.value,
@@ -39,22 +29,12 @@ export default class PartsForm extends Component {
                 PrtMsg: this.PrtMsg.value,
 
 
-
-            }),
-            headers: new Headers({
-                'content-type': 'application/json',
-                'Authorization': token,
-            })
+            }
         };
-        fetch(ApiProvider.Add+'/auth/part/', requestInfo)
-            .then(res => {
 
-                if(res.ok){
-                    return res.text();
-                }else {
-                    throw new Error('Não foi possivel.')
-                }
-            })
+
+        fetchApi('/auth/part/', "POST", req.body)
+
             .then(token =>{
 
                 history.push('/partsList')
@@ -84,141 +64,138 @@ export default class PartsForm extends Component {
                 </div>
 
 
-                <div className="container-fluid">
-                    <div className="masonry-item col-md-10">
-                        <div className="bgc-white p-20 bd">
-
-                            <div className="mT-30">
+                <div className="col-md-12">
+                    <div className="col-lg-12  ">
+                        <div className="card ">
+                            <div className="card-body">
                                 <form className="container" id="needs-validation" onSubmit={this.send.bind(this)}>
-                                    <div className="card ">
-                                        <div className="card-body">
-                                            <div class="row">
-                                                <div class="col-md-6 mb-3">
 
-                                                    <label class="fw-500">Código</label>
-                                                    <div class="col-md-9">
-                                                        <p class="form-control-static">12331 </p>
-                                                    </div>
-                                                </div>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+
+                                            <label class="fw-500">Código</label>
+                                            <div class="col-md-9">
+                                                <p class="form-control-static">12331 </p>
                                             </div>
-                                            <div class="row">
-                                                <div class="col-md-6 mb-3">
-
-                                                    <label class="fw-500" for="validationCustom02">Descrição</label>
-                                                    <input type="text" class="form-control" id="validationCustom02"
-                                                           required ref={input => this.PrtDes = input}/>
-                                                </div>
-                                                <div class="col-md-6 mb-3">
-
-                                                    <label class="fw-500 " for="validationCustom20">Fornecedor</label>
-                                                    <input type="text" class="form-control " id="validationCustom20"
-                                                           required ref={input => this.PrtPvd = input}/>
-                                                </div>
-
-                                            </div>
-                                            <div class="row">
-                                                <div className="col-md-3 mb-3">
-
-                                                    <label className="fw-500"
-                                                           htmlFor="validationCustom21">Numeração</label>
-                                                    <input type="text" className="form-control"
-                                                           id="validationCustom21"
-                                                           required ref={input => this.PrtNum = input}/>
-                                                </div>
-
-
-                                                <div className="col-md-3 mb-3">
-
-                                                    <label className="fw-500" htmlFor="validationCustom06">Preço</label>
-                                                    <input type="number" className="form-control"
-                                                           id="validationCustom06"
-                                                           placeholder="" required ref={input => this.PrtPrc = input}/>
-
-                                                </div>
-                                                <div class="col-md-3 mb-3">
-                                                    <div>
-                                                    <label class="fw-500">Estado</label>
-                                                    </div>
-                                                    <div class="btn-group">
-                                                        <div>
-                                                            <select id="question_type1"
-                                                                    className="btn   dropdown-toggle  " data-toggle="dropdown" aria-expanded="true"
-                                                                    ref={input => this.PrtCon = input}>
-                                                                <option name="fisica"/>
-                                                                <option name="fisica">Novo</option>
-                                                                <option name="juricida">Usado</option>
-                                                                <option name="juricida">Recondicionado</option>
-                                                            </select>
-                                                            <script>
-                                                                alert($("#question_type option:selected").attr('name'));
-                                                            </script>
-                                                        </div>
-                                                    </div>
-
-
-                                                </div>
-                                                <div className="col-md-3 mb-3">
-                                                    <div>
-                                                    <label className="fw-500">Derivação</label>
-                                                    </div>
-                                                    <div className="btn-group">
-                                                        <div className="mb-xl-1">
-                                                            <select id="question_type1"
-                                                                    className="btn  dropdown-toggle  " data-toggle="dropdown" aria-expanded="true"
-                                                                    ref={input => this.PrtDer= input}>
-                                                                <option name="fisica"/>
-                                                                <option name="fisica">F.E</option>
-                                                                <option name="juricida">F.D</option>
-                                                                <option name="juricida">T.E</option>
-                                                                <option name="juricida">T.D</option>
-                                                            </select>
-                                                            <script>
-                                                                alert($("#question_type option:selected").attr('name'));
-                                                            </script>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-
-
-
-                                            </div>
-                                            <div className="row">
-                                                <div class="col-md-3 mb-3">
-                                                    <label class="fw-500" for="validationCustom07">Estoque minimo</label>
-
-                                                    <input type="number" class="form-control" id="validationCustom07"
-                                                           placeholder="" ref={input => this.PrtMsg = input}/>
-                                                    <div class="invalid-feedback"> Please provide last name.</div>
-                                                </div>
-                                                <div className="col-md-3 mb-3">
-                                                    <label className="fw-500" htmlFor="validationCustom07">Estoque
-                                                        atual</label>
-
-                                                    <input type="number" className="form-control"
-                                                           id="validationCustom07"
-                                                           placeholder="" ref={input => this.PrtAsg = input}/>
-                                                    <div className="invalid-feedback"> Please provide last name.</div>
-                                                </div>
-
-                                        </div>
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
 
-                                    <div class="text-right">
-                                        <Link class="btn cur-p btn-info m-b-10 m-l-5" to={'/partsList'}>Cancelar</Link>
+                                            <label class="fw-500" for="validationCustom02">Descrição</label>
+                                            <input type="text" class="form-control" id="validationCustom02"
+                                                   required ref={input => this.PrtDes = input}/>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
 
-
-                                        <button class="btn cur-p btn-success m-b-10 m-l-5" type="submit">Salvar</button>
+                                            <label class="fw-500 " for="validationCustom20">Fornecedor</label>
+                                            <input type="text" class="form-control " id="validationCustom20"
+                                                   required ref={input => this.PrtPvd = input}/>
+                                        </div>
 
                                     </div>
+                                    <div class="row">
+                                        <div className="col-md-3 mb-3">
+
+                                            <label className="fw-500"
+                                                   htmlFor="validationCustom21">Numeração</label>
+                                            <input type="text" className="form-control"
+                                                   id="validationCustom21"
+                                                   required ref={input => this.PrtNum = input}/>
+                                        </div>
 
 
+                                        <div className="col-md-3 mb-3">
+
+                                            <label className="fw-500" htmlFor="validationCustom06">Preço</label>
+                                            <input type="number" className="form-control"
+                                                   id="validationCustom06"
+                                                   placeholder="" required ref={input => this.PrtPrc = input}/>
+
+                                        </div>
+                                        <div class="col-md-3 mb-3">
+                                            <div>
+                                                <label class="fw-500">Estado</label>
+                                            </div>
+                                            <div class="btn-group">
+                                                <div>
+                                                    <select id="question_type1"
+                                                            className="btn   dropdown-toggle  " data-toggle="dropdown" aria-expanded="true"
+                                                            ref={input => this.PrtCon = input}>
+                                                        <option name="fisica"/>
+                                                        <option name="fisica">Novo</option>
+                                                        <option name="juricida">Usado</option>
+                                                        <option name="juricida">Recondicionado</option>
+                                                    </select>
+                                                    <script>
+                                                        alert($("#question_type option:selected").attr('name'));
+                                                    </script>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                        <div className="col-md-3 mb-3">
+                                            <div>
+                                                <label className="fw-500">Derivação</label>
+                                            </div>
+                                            <div className="btn-group">
+                                                <div className="mb-xl-1">
+                                                    <select id="question_type1"
+                                                            className="btn  dropdown-toggle  " data-toggle="dropdown" aria-expanded="true"
+                                                            ref={input => this.PrtDer= input}>
+                                                        <option name="fisica"/>
+                                                        <option name="fisica">F.E</option>
+                                                        <option name="juricida">F.D</option>
+                                                        <option name="juricida">T.E</option>
+                                                        <option name="juricida">T.D</option>
+                                                    </select>
+                                                    <script>
+                                                        alert($("#question_type option:selected").attr('name'));
+                                                    </script>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+
+
+                                    </div>
+                                    <div className="row">
+                                        <div class="col-md-3 mb-3">
+                                            <label class="fw-500" for="validationCustom07">Estoque minimo</label>
+
+                                            <input type="number" class="form-control" id="validationCustom07"
+                                                   placeholder="" ref={input => this.PrtMsg = input}/>
+                                            <div class="invalid-feedback"> Please provide last name.</div>
+                                        </div>
+                                        <div className="col-md-3 mb-3">
+                                            <label className="fw-500" htmlFor="validationCustom07">Estoque
+                                                atual</label>
+
+                                            <input type="number" className="form-control"
+                                                   id="validationCustom07"
+                                                   placeholder="" ref={input => this.PrtAsg = input}/>
+                                            <div className="invalid-feedback"> Please provide last name.</div>
+                                        </div>
+
+                                    </div>
                                 </form>
-
 
                             </div>
                         </div>
+
+                        <div class="text-right">
+                            <Link class="btn cur-p btn-info m-b-10 m-l-5" to={'/partsList'}>Cancelar</Link>
+
+
+                            <button class="btn cur-p btn-success m-b-10 m-l-5" type="submit">Salvar</button>
+
+                        </div>
+
+
+
+
                     </div>
                 </div>
             </div>

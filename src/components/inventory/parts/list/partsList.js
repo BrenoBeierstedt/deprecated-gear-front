@@ -3,21 +3,12 @@ import React ,{Component} from "react";
 import  PrtPrev from "./prtPrev";
 import {Link} from "react-router-dom";
 
-import ApiProvider from './../../../../gearUtils/util'
+import ApiProvider from '../../../../gearUtils/apiMsc'
 import CusPrev from "../../../customer/list/customerList";
+import {fetchApi} from "../../../../gearUtils/fetch/fetch";
 
 
-const token = localStorage.getItem('auth-token');
 
-const requestInfo = {
-
-    method: 'GET',
-
-    headers: new Headers({
-
-        'Authorization': token,
-    })
-};
 
     export default class PartsList extends Component {
 
@@ -38,12 +29,9 @@ const requestInfo = {
 
 
         search = query => {
-            const url = ApiProvider.Add +`/auth/parts/search?q=${query}`;
             const token = {};
             this.token = token;
-
-            fetch(url, requestInfo)
-                .then(results => results.json())
+fetchApi(`/auth/parts/search?q=${query}`,"GET")
                 .then(data => {
                     if (this.token === token) {
                         this.setState({ parts: data });
@@ -70,10 +58,8 @@ const requestInfo = {
                         </ol>
                     </div>
                 </div>
-                <div className="container-fluid">
-                    <div className="row">
-                        <div className="col-md-12">
-                            <div className="bgc-white bd bdrs-3 p-20 mB-20">
+                <div className="col-md-12">
+                    <div className="col-lg-12  ">
                                 <div className="card ">
                                     <div className="card-body">
 
@@ -126,8 +112,7 @@ const requestInfo = {
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
+
 
         )
     }

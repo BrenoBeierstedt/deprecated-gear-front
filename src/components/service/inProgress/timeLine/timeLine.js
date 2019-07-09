@@ -1,7 +1,7 @@
 // Importando o React
 import React ,{Component} from "react";
 import Timeline from 'react-time-line'
-import ApiProvider from './../../../../gearUtils/util'
+import ApiProvider from '../../../../gearUtils/apiMsc'
 
 import CusNVhcCard from "../../../customer/customerData/cusNVhcCard";
 
@@ -51,6 +51,7 @@ export default class TimeLine extends Component {
     };
 
     componentWillMount() {
+        const id = this.props.match.params.id
 
         const requestInfoS = {
 
@@ -63,7 +64,7 @@ export default class TimeLine extends Component {
         };
 
 
-        fetch(ApiProvider.Add +"/auth/sip/25", requestInfoS)
+        fetch(ApiProvider.Add +"/auth/sip/"+id, requestInfoS)
             .then(res => res.json())
             .then( data => {
                 arr = data;

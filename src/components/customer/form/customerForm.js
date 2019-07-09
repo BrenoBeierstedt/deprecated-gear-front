@@ -2,10 +2,10 @@
 import React, {Component} from "react";
 import {Link} from "react-router-dom";
 import history from "../../history";
+import Alert from "./alert";
 
-import ApiProvider from './../../../gearUtils/util'
+import {fetchApi} from '../../../gearUtils/fetch/fetch'
 
-const token = localStorage.getItem('auth-token');
 
 
 
@@ -15,19 +15,18 @@ export default class CusForm extends Component {
 
 
 
-    constructor(){
-        super();
-        this.state = {msg:''};
+    constructor(props){
+        super(props);
+        this.state = {msg:'',
+        status: false};
 
     }
 
     send(event) {
         event.preventDefault();
+        const req= { body: {
 
-        const requestInfo = {
 
-            method: 'POST',
-            body: JSON.stringify({
                 CusNam: this.CusNam.value,
                 CusSec: this.CusSec.value,
                 CusBdy: this.CusBdy.value,
@@ -37,36 +36,26 @@ export default class CusForm extends Component {
                 TelNum: this.TelNum.value,
                 Cf1Aco: this.Cf1Aco.value,
                 Cf1Num: this.Cf1Num.value,
-                CusAdd:[{
+                CusAdd: [{
                     AddStr: this.AddStr.value,
                     AddZip: this.AddZip.value,
                     AddCit: this.AddCit.value,
                     AddSta: this.AddSta.value,
                     AddCom: this.AddCom.value,
-                } ]
+                }]
+            }
 
-            }),
-            headers: new Headers({
-                'content-type': 'application/json',
-                'Authorization': token,
-            })
         };
-        fetch(ApiProvider.Add+'/auth/customer/', requestInfo)
-            .then(res => {
 
-                if(res.ok){
-                    return res.text();
-                }else {
-                    throw new Error('Não foi possivel.')
-                }
-            })
+        fetchApi('/auth/customer/', "POST",req.body )
+
             .then(token =>{
-
+this.setState({msg:"Cliente cadastrado com sucesso", status:"success"});
                 history.push('/cusList')
 
             })
             .catch(error=>{
-                this.setState({msg:error.message})
+                this.setState({msg:"Erro ao cadastrar, Erro: "+error.message, status:"error"})
             })
     };
 
@@ -87,13 +76,23 @@ export default class CusForm extends Component {
                         </ol>
                     </div>
                 </div>
-                <div className="masonry-item col-md-10">
-                    <div className="bgc-white p-20 bd">
+                <div className="col-md-12">
+                        <div className="col-lg-12  ">
 
-                        <div className="mT-30">
+
                             <form  id="needs-validation" onSubmit={this.send.bind(this)} >
-                                <div className="card ">
+
+                            <div className="card ">
                                     <div className="card-body">
+
+                                        <div className="toastr m-t-15">
+                                            <div className="text-left">
+                                                <div
+                                                      id="toastr-success-top-full-width">
+                                                </div>
+
+                                            </div>
+                                        </div>
                                         <div className="card-title">
                                             <h4>Dados complementares </h4>
 
@@ -101,7 +100,7 @@ export default class CusForm extends Component {
                                         <div className="row">
                                             <div className="col-md-6 mb-3">
 
-                                                <label className="fw-500" htmlFor="CusNam">Nome / Razão social</label>
+                                                <label className="fw-500" htmlFor="CusNam" >Nome / Razão social</label>
                                                 <input type="text" className="form-control" id="CusNam" placeholder="Nome ou Razão social" ref={input => this.CusNam = input} required/>
                                             </div>
 
@@ -217,23 +216,36 @@ export default class CusForm extends Component {
                                                        placeholder="CEP" ref={input => this.AddZip = input} required/>
                                             </div>
                                         </div>
+
+
+
+
                                     </div>
                                 </div>
-                                <div className="text-right">
-                                    <Link className="btn cur-p btn-info m-b-10 m-l-5" to="/cusList"> Cancelar</Link>
+
+                                <div className="text-right col-md-12 mb-lg-5">
+                                    <Link className="btn cur-p btn-info m-b-1 m-lg-2" to="/cusList"> Cancelar</Link>
 
 
-                                    <button className="btn cur-p btn-success m-b-10 m-l-5" type="submit">Salvar</button>
+                                    <button className="btn cur-p btn-success m-b-1 m-lg-2" type="submit">Salvar</button>
 
                                 </div>
+
                             </form>
 
 
                         </div>
-                    </div>
-                </div>
+
+
+    </div>
+
             </div>
-        )
+
+
+
+
+
+    )
     }
 }
 

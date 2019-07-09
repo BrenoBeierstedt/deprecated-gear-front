@@ -2,10 +2,10 @@ import React, {Component} from "react";
 import {Link} from "react-router-dom";
 import Select from "react-select";
 
-import ApiProvider from "../../../../gearUtils/util";
+import ApiProvider from "../../../../gearUtils/apiMsc";
 import history from "../../../history";
 
-
+import {fetchApi} from "./../../../../gearUtils/fetch/fetch"
 
 
 global.info = null;
@@ -15,7 +15,6 @@ let apiLink=ApiProvider.Add+"/auth/cvn/";
 const requestInfo = {
 
     method: 'GET',
-
     headers: new Headers({
 
         'Authorization': localStorage.getItem('auth-token'),
@@ -36,7 +35,7 @@ let copyOptionsForAsync = async (e)=> {
 
     });
 
-}
+};
 
 
 export default class ServInProForm extends Component {
@@ -66,11 +65,10 @@ export default class ServInProForm extends Component {
         };
     }
     send(event) {
-event.preventDefault();
-        const requestInfoPost = {
+        event.preventDefault();
+        const req = {
 
-            method: 'POST',
-            body: JSON.stringify({
+            body: {
                 SipCus: this.state.customer.CusNam,
                 Cf1Aco: this.state.customer.Cf1Aco,
                 Cf1Num: this.state.customer.Cf1Num,
@@ -83,23 +81,12 @@ event.preventDefault();
                 SipStt:this.state.SipStt,
 
 
-            }),
-            headers: new Headers({
-                'content-type': 'application/json',
-                'Authorization': localStorage.getItem('auth-token'),
-            })
+            },
         };
-        fetch(ApiProvider.Add+'/auth/sip/', requestInfoPost)
-            .then(res => {
 
-                if(res.ok){
-                    return res.text();
-                }else {
-                    throw new Error('Não foi possivel.')
-                }
-            })
+        fetchApi('/auth/sip/', "POST", req.body )
+
             .then(token =>{
-
                 history.push('/ServInProList')
 
             })
@@ -141,96 +128,52 @@ event.preventDefault();
                         </ol>
                     </div>
                 </div>
-
-                <div className="container-fluid">
-
-                    <form  id="needs-validation" onSubmit={this.send.bind(this)} >
-
-                    <div className="masonry-item col-md-9">
-                        <div className="bgc-white p-20 bd">
-                            <div className="mT-30">
-                                    <div className="card ">
-                                        <div className="card-body">
-                                            <div className="card-title">
-                                                <h4>Dados do Cliente </h4>
-
+                <form  id="needs-validation" onSubmit={this.send.bind(this)} >
+                    <div className="col-md-12">
+                            <div className="col-lg-12  ">
+                                <div className="card ">
+                                    <div className="card-body">
+                                        <div className="card-title">
+                                            <h4>Dados do Cliente </h4>
+                                        </div>
+                                        <div className="row">
+                                            <div className="col-md-6 mb-md-5 ">
+                                                <Select
+                                                    name="option"
+                                                    options={options}
+                                                    onChange={this.handleOnchange}
+                                                />
                                             </div>
-                                            <div className="row">
-                                                <div className="col-md-6 mb-md-5 ">
-                                            <Select
-                                                name="option"
-                                                options={options}
-                                                onChange={this.handleOnchange}
-
-                                            />
-                                                </div>
+                                        </div>
+                                        <div className="row">
+                                            <div className="col-md-3 mb-3">
+                                                <label className="fw-500">Nome</label>
+                                                <p className="form-control-static">{this.state.customer.CusNam} </p>
                                             </div>
-
-                                            <div className="row">
-                                                <div className="col-md-3 mb-3">
-
-                                                    <label className="fw-500">Nome</label>
-
-                                                    <p className="form-control-static">{this.state.customer.CusNam} </p>
-
-                                                </div>
-
-
-                                                <div className="col-md-3 mb-3">
-
-                                                    <label className="fw-500">CPF/CNPJ</label>
-
-                                                    <p className="form-control-static"> {this.state.customer.CusSec}</p>
-
-                                                </div>
-                                                <div className="col-md-3 mb-3">
-
-                                                    <label className="fw-500">E-mail</label>
-
-                                                    <p className="form-control-static">{this.state.customer.CusEma} </p>
-
-                                                </div>
-                                                <div className="col-md-3 mb-3">
-
-                                                    <label className="fw-500">Telefone</label>
-
-                                                    <p className="form-control-static"> {this.state.customer.Cf1Num}</p>
-
-                                                </div>
-
-
+                                            <div className="col-md-3 mb-3">
+                                                <label className="fw-500">CPF/CNPJ</label>
+                                                <p className="form-control-static"> {this.state.customer.CusSec}</p>
+                                            </div>
+                                            <div className="col-md-3 mb-3">
+                                                <label className="fw-500">E-mail</label>
+                                                <p className="form-control-static">{this.state.customer.CusEma} </p>
+                                            </div>
+                                            <div className="col-md-3 mb-3">
+                                                <label className="fw-500">Telefone</label>
+                                                <p className="form-control-static"> {this.state.customer.Cf1Num}</p>
                                             </div>
                                         </div>
                                     </div>
-
-
-                                                        {this.state.isSelected ? <App1  callBack={this.cvnCallback} /> : null}
-
-
-
-
-                                        </div>
-                                    </div>
-
-
-                                    <div className="text-right ">
-
-                                        <Link className="btn cur-p btn-info m-b-10 m-l-5" to={'/ServInProList'}>Cancelar</Link>
-
-
-                                        <button className="btn cur-p btn-success m-b-10 m-l-5" type="submit">Salvar</button>
-
-                                    </div>
-
-
-
+                                </div>
+                                {this.state.isSelected ? <App1  callBack={this.cvnCallback} /> : null}
                             </div>
-                    </form>
-
-                </div>
+                        <div className="text-right  mb-lg-5">
+                            <Link className="btn cur-p btn-info m-b-1 m-lg-2" to={'/ServInProList'}>Cancelar</Link>
+                            <button className="btn cur-p btn-success m-b-1 m-lg-2" type="submit">Salvar</button>
+                        </div>
                     </div>
-
-
+                </form>
+            </div>
 
         )
     }
@@ -239,14 +182,14 @@ event.preventDefault();
 
 class App1 extends React.Component {
 
-state={
-    vehicle:[]
-};
+    state={
+        vehicle:[]
+    };
 
     handleSelectChange = (event) => {
         const info = event.value;
         this.props.callBack(info);
-    this.setState({vehicle:[]});
+        this.setState({vehicle:[]});
         this.setState({vehicle:event.value}
         );
 
@@ -256,22 +199,19 @@ state={
     render() {
 
         return (
-
             <div className="card ">
                 <div className="card-body">
                     <div className="card-title">
-                        <h4>Dados do veiculo </h4>
-
+                        <h4>Dados do Veiculo </h4>
                     </div>
-
                     <div className="row">
                         <div className="col-md-6 mb-md-5 ">
                             <div className="App">
-                <Select name="options2"
-                        options={options1}
-                        onChange={this.handleSelectChange}
-                />
-            </div>
+                                <Select name="options2"
+                                        options={options1}
+                                        onChange={this.handleSelectChange}
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -279,76 +219,53 @@ state={
                     <div className="col-md-3 mb-3">
                         <label className="fw-500">Modelo</label>
                         <div className="timepicker-input input-icon form-group">
-
                             <p className="form-control-static" >{this.state.vehicle.MdlNam}</p>
-
                         </div>
                     </div>
                     <div className="col-md-3 mb-3">
                         <label className="fw-500">Fabricante</label>
                         <div className="timepicker-input input-icon form-group">
-
                             <p className="form-control-static"> {this.state.vehicle.MnfNam}  </p>
-
                         </div>
                     </div>
                     <div className="col-md-6 mb-3">
-
                         <label className="fw-500">Placa</label>
-
                         <p className="form-control-static"> {this.state.vehicle.CvnPlt} </p>
-
                     </div>
                 </div>
                 <div className="row">
                     <div className="col-md-3 mb-3">
                         <label className="fw-500">Ano de fabricação</label>
                         <div className="timepicker-input input-icon form-group">
-
                             <p className="form-control-static"> {this.state.vehicle.CvnFby} </p>
-
                         </div>
                     </div>
                     <div className="col-md-3 mb-3">
                         <label className="fw-500">Ano do modelo</label>
                         <div className="timepicker-input input-icon form-group">
-
                             <p className="form-control-static"> {this.state.vehicle.CvnMdy} </p>
-
                         </div>
                     </div>
                     <div className="col-md-6 mb-3">
-
                         <label className="fw-500">Cilindrada (cm³)</label>
-
                         <p className="form-control-static">{this.state.vehicle.CvnPlt} </p>
-
                     </div>
                 </div>
                 <div className="row">
-
                     <div className="col-md-3 mb-3">
                         <div>
                             <label className="fw-500 text-center">Combustível</label>
                         </div>
-
-
                         <p className="form-control-static"> {this.state.vehicle.CvnFtp} </p>
-
                     </div>
                     <div className="col-md-3 mb-3">
                         <div>
                             <label className="fw-500 text-center">Chassis</label>
                         </div>
-
-
                         <p className="form-control-static"> {this.state.vehicle.CvnCch} </p>
-
                     </div>
-
-
                 </div>
-                </div>
+            </div>
         );
     }
 }

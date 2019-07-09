@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {Link} from "react-router-dom";
 import history from "../../../history";
-import ApiProvider from './../../../../gearUtils/util'
+import ApiProvider from '../../../../gearUtils/apiMsc'
 import CusNVhcCard from './../../../customer/customerData/cusNVhcCard'
 
 
@@ -17,6 +17,7 @@ export default class budgetForm extends Component {
         product: [{'proQty':"", "proDescription":"", "proPrice":""}],
         service: [{'svcDescription':"", "svcPrice":"", "svcSts":"1"}],
         sip:[],
+        svcSts:"Orcamento"
 
     };
     handleChange = (e) => {
@@ -97,6 +98,7 @@ export default class budgetForm extends Component {
                 parts: this.state.parts,
                 product: this.state.product,
                 service: this.state.service,
+                svcSts: this.state.svcSts,
 
 
 
@@ -119,7 +121,7 @@ export default class budgetForm extends Component {
             })
             .then(token =>{
 
-                history.push('/cusList')
+                history.push('/ServInProList')
 
             })
             .catch(error=>{
@@ -128,6 +130,7 @@ export default class budgetForm extends Component {
     };
 
     componentWillMount() {
+        const id = this.props.match.params.id
 
         const requestInfoS = {
 
@@ -140,7 +143,7 @@ export default class budgetForm extends Component {
         };
 
 
-        fetch(ApiProvider.Add +"/auth/sip/25", requestInfoS)
+        fetch(ApiProvider.Add +"/auth/sip/"+id, requestInfoS)
             .then(res => res.json())
             .then( data => {
                 arr = data;

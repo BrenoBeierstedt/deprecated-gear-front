@@ -1,7 +1,7 @@
 // Importando o React
 import React ,{Component} from "react";
 
-import ApiProvider from './../../../../gearUtils/util'
+import ApiProvider from '../../../../gearUtils/apiMsc'
 
 import  ProPrev from "./proPrev";
 import {Link} from "react-router-dom";
@@ -74,10 +74,8 @@ const requestInfo = {
                         </ol>
                     </div>
                 </div>
-                <div className="container-fluid">
-                    <div className="row">
-                        <div className="col-md-12">
-                            <div className="bgc-white bd bdrs-3 p-20 mB-20">
+                <div className="col-md-12">
+                    <div className="col-lg-12  ">
                                 <div className="card ">
                                     <div className="card-body">
 
@@ -131,8 +129,6 @@ const requestInfo = {
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
 
         )
     }

@@ -5,7 +5,7 @@ import CreatableSelect from 'react-select/lib/Creatable';
 
 import CusNVhcCard from "../../../customer/customerData/cusNVhcCard";
 
-import ApiProvider from './../../../../gearUtils/util'
+import ApiProvider from '../../../../gearUtils/apiMsc'
 import CusPrev from "../../../customer/list/customerList";
 
 const token = localStorage.getItem('auth-token');
@@ -15,6 +15,7 @@ global.SipID = null;
 
 
 export default class SipVDForm extends Component {
+
     state = {
         query: "",
         sip:[],
@@ -22,6 +23,7 @@ export default class SipVDForm extends Component {
         SipObs:[],
         SipAcc:[],
         SipDgn:[],
+        svcSts:"Vistoria"
 
     };
 
@@ -68,6 +70,7 @@ export default class SipVDForm extends Component {
                 SipDgn: this.state.SipDgn,
                 SipOdm: this.SipOdm.value,
                 SipIss: this.state.SipIss,
+                svcSts: this.state.svcSts
 
             }),
             headers: new Headers({
@@ -95,7 +98,7 @@ export default class SipVDForm extends Component {
             })
     };
     componentWillMount() {
-
+const id = this.props.match.params.id
         const requestInfoS = {
 
             method: 'GET',
@@ -107,7 +110,7 @@ export default class SipVDForm extends Component {
         };
 
 
-        fetch(ApiProvider.Add +"/auth/sip/19", requestInfoS)
+        fetch(ApiProvider.Add +"/auth/sip/"+id, requestInfoS)
             .then(res => res.json())
             .then( data => {
                 arr = data;
@@ -247,7 +250,7 @@ export default class SipVDForm extends Component {
                                 </div>
                             </div>
                             <div className="text-right">
-                                <Link className="btn cur-p btn-info m-b-10 m-l-5" to="/cusList"> Cancelar</Link>
+                                <Link className="btn cur-p btn-info m-b-10 m-l-5" to="/ServInProList"> Cancelar</Link>
 
 
                                 <button className="btn cur-p btn-success m-b-10 m-l-5" type="submit">Salvar</button>

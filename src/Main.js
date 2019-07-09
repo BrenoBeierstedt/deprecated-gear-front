@@ -21,11 +21,10 @@ import ServInProEdit from "./components/service/inProgress/form/serviceInProgres
 import ServInProForm from "./components/service/inProgress/form/serviceInProgressForm";
 import ServInProList from "./components/service/inProgress/list/serviceInProgressList";
 import ServList from "./components/service/commonService/list/csvList";
-import UserForm from "./components/user/userForm";
+import UserForm from "./components/user/register/userForm";
 import VehiTranfer from "./components/vehicle/misc/vehicleTransfer";
 import VehiModelList from "./components/vehicle/models/vehicleModelList";
 import MnfModelList from "./components/vehicle/models/mnf/MnfModelList";
-
 import logout from "./components/login/logout";
 import VehiModForm from "./components/vehicle/models/vehicleModelForm";
 import PartsList from "./components/inventory/parts/list/partsList";
@@ -36,70 +35,74 @@ import SipVDForm from "./components/service/inProgress/form/SipVDForm";
 import BudgetForm from './components/service/inProgress/budget/budgetForm';
 import TimeLine from './components/service/inProgress/timeLine/timeLine';
 import List from "./components/customer/test/List";
-import 'jquery/dist/jquery.min.js';
-
 import modalTest from "./components/modalTest/modal";
+import roleList from "./components/roles/list/roleList";
+import roleForm from "./components/roles/form/roleForm";
+import userList from "./components/user/list/userList";
+import UserEdit from "./components/user/edit/userEdit";
 
+
+import 'jquery/dist/jquery.min.js';
 
 
 const Main = () => (
 
 
 
-        <div>
-<BrowserRouter>
+    <div>
+        <BrowserRouter>
 
-<Router history={history}>
+            <Router history={history}>
 
+                <Switch>
 
-<Switch>
+                    <Route exact path="/login"   component={Login}/>
+                    <Route exact path='/list'  component={List}/>
+                    <PrivateRoute exact path='/'  component={App}/>
+                    <PrivateRoute exact path='/userlist'  component={userList}/>
 
-    <PrivateRoute exact path='/modalTest'  component={modalTest}/>
+                    <PrivateRoute exact path='/modalTest'  component={modalTest}/>
+                    <PrivateRoute exact path='/roleform'  component={roleForm}/>
+                    <PrivateRoute exact path='/rolelist'  component={roleList}/>
+                    <PrivateRoute exact path='/mnflist'  component={MnfModelList}/>
+                    <PrivateRoute exact path='/timeline/:id'  component={TimeLine}/>
+                    <PrivateRoute exact path='/budgetForm/:id'  component={BudgetForm}/>
 
-    <Route exact path="/login"   component={Login}/>
-    <Route exact path='/list'  component={List}/>
-    <PrivateRoute exact path='/'  component={App}/>
+                    <PrivateRoute exact path='/SipVDForm/:id'  component={SipVDForm}/>
 
-<PrivateRoute exact path='/mnflist'  component={MnfModelList}/>
-<PrivateRoute exact path='/timeline'  component={TimeLine}/>
-<PrivateRoute exact path='/budgetForm'  component={BudgetForm}/>
-<PrivateRoute exact path='/SipVDForm'  component={SipVDForm}/>
-<PrivateRoute exact path='/cusList'  component={cusList} />
-<PrivateRoute exact path='/cusForm' component={cusForm} />
-<PrivateRoute exact path='/empList' component={EmpList} />
-<PrivateRoute exact path='/empForm' component={EmpForm}/>
-<PrivateRoute exact path='/proForm' component={ProductForm}/>
-<PrivateRoute exact path='/proList' component={ProductList}/>
-<PrivateRoute exact path='/partsForm' component={PartsForm}/>
-<PrivateRoute exact path='/extRep' component={ExtRep}/>
-<PrivateRoute exact path='/intRep' component={IntRep}/>
-<PrivateRoute exact path='/servForm' component={ServForm}/>
-<PrivateRoute exact path='/servInProEdit' component={ServInProEdit}/>
-<PrivateRoute exact path='/servInProForm' component={ServInProForm}/>
-<PrivateRoute exact path='/servInProList' component={ServInProList}/>
-<PrivateRoute exact path='/servList' component={ServList}/>
-<PrivateRoute exact path='/userForm' component={UserForm}/>
-<PrivateRoute exact path='/servInProList' component={ServInProList}/>
+                    <PrivateRoute exact path='/cusList'  component={cusList} />
+                    <PrivateRoute exact path='/cusForm' component={cusForm} />
+                    <PrivateRoute exact path='/empList' component={EmpList} />
+                    <PrivateRoute exact path='/empForm' component={EmpForm}/>
+                    <PrivateRoute exact path='/proForm' component={ProductForm}/>
+                    <PrivateRoute exact path='/proList' component={ProductList}/>
+                    <PrivateRoute exact path='/partsForm' component={PartsForm}/>
+                    <PrivateRoute exact path='/extRep' component={ExtRep}/>
+                    <PrivateRoute exact path='/intRep' component={IntRep}/>
+                    <PrivateRoute exact path='/servForm' component={ServForm}/>
+                    <PrivateRoute exact path='/servInProEdit' component={ServInProEdit}/>
+                    <PrivateRoute exact path='/servInProForm' component={ServInProForm}/>
+                    <PrivateRoute exact path='/servInProList' component={ServInProList}/>
+                    <PrivateRoute exact path='/servList' component={ServList}/>
+                    <PrivateRoute exact path='/userForm' component={UserForm}/>
 
-<PrivateRoute exact path='/vehiTranfer' component={VehiTranfer}/>
-<PrivateRoute exact path='/vehiModelList' component={VehiModelList}/>
-<PrivateRoute exact path='/logout'  component={logout} />
-<PrivateRoute exact path='/vehiModForm' component={VehiModForm}/>
-<PrivateRoute exact path='/partsList' component={PartsList}/>
-<PrivateRoute exact path='/partsForm' component={PartsForm}/>
-<PrivateRoute exact path='/cvnForm' component={cvnForm}/>
-<PrivateRoute exact path='/cvnList' component={cvnList}/>
+                    <PrivateRoute exact path='/useredit/:id' component={UserEdit}/>
+                    <PrivateRoute exact path='/servInProList' component={ServInProList}/>
+                    <PrivateRoute exact path='/vehiTranfer' component={VehiTranfer}/>
+                    <PrivateRoute exact path='/vehiModelList' component={VehiModelList}/>
+                    <PrivateRoute exact path='/logout'  component={logout} />
+                    <PrivateRoute exact path='/vehiModForm' component={VehiModForm}/>
+                    <PrivateRoute exact path='/partsList' component={PartsList}/>
+                    <PrivateRoute exact path='/partsForm' component={PartsForm}/>
+                    <PrivateRoute exact path='/cvnForm' component={cvnForm}/>
+                    <PrivateRoute exact path='/cvnList' component={cvnList}/>
 
+                </Switch>
 
+            </Router>
 
-
-
-</Switch>
-
-</Router>
-
-</BrowserRouter>
-</div>
+        </BrowserRouter>
+    </div>
 );
 
 export default Main;

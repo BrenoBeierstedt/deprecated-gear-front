@@ -54,7 +54,7 @@ export default class CusPrev extends Component {
 
 
             </tr>
-            <Modal openModal={this.state.visible} cus={this.props} callback={this.closeModal}/>
+            <Modal openModal={this.state.visible} customer={this.props} callback={this.closeModal}/>
 
             </tbody>
         )

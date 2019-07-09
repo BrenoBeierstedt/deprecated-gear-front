@@ -1,22 +1,14 @@
 import React, {Component} from "react";
 import {Link} from "react-router-dom";
-import ApiProvider from "../../../../gearUtils/util";
+import ApiProvider from "../../../../gearUtils/apiMsc";
 
 import  CsvPrev from "./CsvPrev";
+import {fetchApi} from "../../../../gearUtils/fetch/fetch";
 
 
 
 
 
-const requestInfo = {
-
-    method: 'GET',
-
-    headers: new Headers({
-
-        'Authorization': localStorage.getItem('auth-token'),
-    })
-};
 
 export default class ServList extends Component {
 
@@ -37,12 +29,10 @@ export default class ServList extends Component {
 
 
     search = query => {
-        const url = ApiProvider.Add +`/auth/csv/search?q=${query}`;
         const token = {};
         this.token = token;
 
-        fetch(url, requestInfo)
-            .then(results => results.json())
+        fetchApi(`/auth/csv/search?q=${query}`, "GET")
             .then(data => {
                 if (this.token === token) {
                     this.setState({ csv: data });
@@ -72,12 +62,8 @@ export default class ServList extends Component {
                     </div>
                 </div>
 
-                <div className="container-fluid">
-
-
-                    <div className="row">
-                        <div className="col-md-10">
-                            <div className="bgc-white bd bdrs-3 p-20 mB-20">
+                <div className="col-md-12">
+                    <div className="col-lg-12  ">
                                 <div className="card ">
                                     <div className="card-body">
 
@@ -124,8 +110,6 @@ export default class ServList extends Component {
                     </div>
 
 
-                </div>
-            </div>
         );
     }
 }

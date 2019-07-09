@@ -1,7 +1,7 @@
 import React ,{Component} from "react";
 import AsyncSelect from "react-select";
 import Select, { components } from "react-select";
-import ApiProvider from './../../../../gearUtils/util'
+import ApiProvider from '../../../../gearUtils/apiMsc'
 
 
 let options1 = [];

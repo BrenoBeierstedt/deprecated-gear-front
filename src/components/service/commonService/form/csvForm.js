@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {Link} from "react-router-dom";
 import history from "../../../history";
 
-import ApiProvider from './../../../../gearUtils/util'
+import ApiProvider from '../../../../gearUtils/apiMsc'
 
 const token = localStorage.getItem('auth-token');
 
@@ -72,13 +72,11 @@ export default class ServForm extends Component {
                     </div>
                 </div>
 
-                <div className="container-fluid">
 
 
-                    <div className="masonry-item col-md-10">
-                        <div className="bgc-white p-20 bd">
+                    <div className="col-md-12">
+                        <div className="col-lg-12  ">
 
-                            <div className="mT-30 align-self-center">
                                 <form  id="needs-validation" onSubmit={this.send.bind(this)} >
                                     <div className="card ">
                                         <div className="card-body">
@@ -129,8 +127,6 @@ export default class ServForm extends Component {
                     </div>
 
 
-                </div>
-            </div>
         );
     }
 }

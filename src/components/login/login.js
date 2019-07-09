@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import history from "../history"
 
-import ApiProvider from './../../gearUtils/util'
+import ApiProvider from '../../gearUtils/apiMsc'
 
 
 const getUrlParameter = (name) => {
@@ -70,11 +70,11 @@ export default class Login extends Component {
                         <div className="col-lg-4">
                             <div className="login-content card">
                                 <div className="login-form">
-                                    <span >
+                                    {this.state.msg ? <span >
                                         {this.state.msg || getUrlParameter('msg')}
-                                     </span>
+                                     </span>:false}
 
-                                    <h4> <img src="images/logo.png"/>GEAR</h4>
+                                    <h4> <img src="images/logo.png"/></h4>
                                     <form onSubmit={this.send.bind(this)}>
                                         <div className="form-group">
                                             <label>Usuário</label>

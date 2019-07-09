@@ -2,7 +2,8 @@ import React, {Component} from "react";
 import {Link} from "react-router-dom";
 import history from "../../history";
 
-import ApiProvider from './../../../gearUtils/util'
+import ApiProvider from '../../../gearUtils/apiMsc'
+import {fetchApi} from "../../../gearUtils/fetch/fetch";
 
 
 const token = localStorage.getItem('auth-token');
@@ -20,10 +21,9 @@ export default class EmpForm extends Component {
     send(event) {
         event.preventDefault();
 
-        const requestInfo = {
+        const req = {
 
-            method: 'POST',
-            body: JSON.stringify({
+            body: {
                 EmpNam: this.EmpNam.value,
                 EmpSec: this.EmpSec.value,
                 EmpBdy: this.EmpBdy.value,
@@ -40,21 +40,9 @@ export default class EmpForm extends Component {
                     AddCom: this.AddCom.value,
                 } ]
 
-            }),
-            headers: new Headers({
-                'content-type': 'application/json',
-                'Authorization': token,
-            })
+            },
         };
-        fetch(ApiProvider.Add+'/auth/employee/', requestInfo)
-            .then(res => {
-
-                if(res.ok){
-                    return res.text();
-                }else {
-                    throw new Error('Não foi possivel.')
-                }
-            })
+        fetchApi('/auth/employee/',"POST", req.body)
             .then(token =>{
 
                 history.push('/empList')
@@ -82,145 +70,141 @@ export default class EmpForm extends Component {
                         </ol>
                     </div>
                 </div>
+                <div className="col-md-12">
+                    <div className="row bg-white m-l-0 m-r-0 box-shadow ">
+                        <div className="col-lg-12  ">
+                            <div className="card ">
+                                <div className="card-body">
+                                    <form className="container" id="needs-validation" onSubmit={this.send.bind(this)}>
 
-                <div className="container-fluid">
+                                        <div className="row">
 
+                                            <div className="col-md-6 mb-3">
 
-                    <div className="masonry-item col-md-10">
-                        <div className="bgc-white p-20 bd">
-
-                            <div className="mT-30">
-                                <form className="container" id="needs-validation" onSubmit={this.send.bind(this)}>
-                                    <div className="card ">
-                                        <div className="card-body">
-
-                                            <div className="row">
-                                                <div className="col-md-6 mb-3">
-
-                                                    <label className="fw-500" htmlFor="validationCustom01">Nome
-                                                        completo</label>
-                                                    <input type="text" className="form-control" id="validationCustom01"
-                                                           placeholder="Nome completo" ref={input => this.EmpNam = input} required/>
-                                                </div>
-
-
-                                                <div className="col-md-6 mb-3">
-
-                                                    <label className="fw-500"
-                                                           htmlFor="validationCustom02">CPF/CNPJ</label>
-                                                    <input type="number" className="form-control"
-                                                           id="validationCustom02"
-                                                           placeholder="CPF ou CNPJ" ref={input => this.EmpSec = input} required/>
-                                                </div>
-                                            </div>
-                                            <div className="row">
-                                                <div className="col-md-3 mb-3">
-                                                    <label className="fw-500">Data de nascimento</label>
-                                                    <div className="timepicker-input input-icon form-group">
-                                                        <div className="input-group">
-
-                                                            <input type="date"
-                                                                   className="form-control bdc-grey-200 start-date"
-                                                                   placeholder="Escolha data"
-                                                                   data-provide="datepicker" ref={input => this.EmpBdy = input}/>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div className="col-md-6 mb-3">
-
-                                                    <label className="fw-500" htmlFor="validationCustom02">Cargo</label>
-                                                    <input type="text" className="form-control" id="validationCustom14"
-                                                           placeholder="Cargo" required ref={input => this.EmpPos = input}/>
-                                                </div>
-                                            </div>
-                                            <div className="row">
-                                                <div className="col-md-1 mb-3">
-
-                                                    <label className="fw-500" htmlFor="validationCustom01">DDD</label>
-                                                    <input type="number" className="form-control"
-                                                           id="validationCustom10"
-                                                           placeholder="DDD" required ref={input => this.Cf1Aco = input}/>
-                                                </div>
-                                                <div className="col-md-5 mb-3">
-
-                                                    <label className="fw-500"
-                                                           htmlFor="validationCustom01">Telefone</label>
-                                                    <input type="number" className="form-control"
-                                                           id="validationCustom11"
-                                                           placeholder="Telefone" ref={input => this.Cf1Num = input} required/>
-                                                </div>
-                                                <div className="col-md-6 mb-3">
-
-                                                    <label className="fw-500"
-                                                           htmlFor="validationCustom02">E-mail</label>
-                                                    <input type="email" className="form-control" id="validationCustom09"
-                                                           placeholder="exemplo@endereço.com.br" ref={input => this.EmpEma = input} required/>
-                                                </div>
+                                                <label className="fw-500" htmlFor="validationCustom01">Nome
+                                                    completo</label>
+                                                <input type="text" className="form-control" id="validationCustom01"
+                                                       placeholder="Nome completo" ref={input => this.EmpNam = input} required/>
                                             </div>
 
 
-                                            <div className="row">
-                                                <div className="col-md-6 mb-3">
+                                            <div className="col-md-6 mb-3">
 
-                                                    <label className="fw-500"
-                                                           htmlFor="validationCustom06">Endereço</label>
-                                                    <input type="text" className="form-control" id="validationCustom06"
-                                                           placeholder="Endereço" ref={input => this.AddStr = input} required/>
-                                                </div>
-                                                <div className="col-md-6 mb-3">
-                                                    <label className="fw-500"
-                                                           htmlFor="validationCustom07">Complemento</label>
-
-                                                    <input type="text" className="form-control" id="validationCustom07"
-                                                           placeholder="Complemento" ref={input => this.AddCom = input}/>
-                                                    <div className="invalid-feedback"> Please provide last name.</div>
-                                                </div>
-                                            </div>
-                                            <div className="row">
-                                                <div className="col-md-6 mb-3">
-                                                    <label className="fw-500"
-                                                           htmlFor="validationCustom03">Cidade</label>
-
-                                                    <input type="text" className="form-control" id="validationCustom03"
-                                                           placeholder="Cidade" ref={input => this.AddCit = input} required/>
-
-                                                </div>
-                                                <div className="col-md-3 mb-3">
-                                                    <label className="fw-500"
-                                                           htmlFor="validationCustom04">Estado</label>
-
-                                                    <input type="text" className="form-control" id="validationCustom04"
-                                                           placeholder="Estado"  ref={input => this.AddSta = input} required/>
-                                                    <div className="invalid-feedback">Insira estado válido.</div>
-                                                </div>
-                                                <div className="col-md-3 mb-3">
-                                                    <label htmlFor="validationCustom05">CEP</label>
-
-                                                    <input type="text" className="form-control" id="validationCustom05"
-                                                           placeholder="CEP" ref={input => this.AddZip = input} required/>
-                                                </div>
+                                                <label className="fw-500"
+                                                       htmlFor="validationCustom02">CPF/CNPJ</label>
+                                                <input type="number" className="form-control"
+                                                       id="validationCustom02"
+                                                       placeholder="CPF ou CNPJ" ref={input => this.EmpSec = input} required/>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div className="text-right">
-                                        <Link to="/empList" className="btn cur-p btn-info m-b-10 m-l-5">Cancelar</Link>
+                                        <div className="row">
+                                            <div className="col-md-6 mb-3">
+                                                <label className="fw-500">Data de nascimento</label>
+                                                <div className="timepicker-input input-icon form-group">
+                                                    <div className="input-group">
+
+                                                        <input type="date"
+                                                               className="form-control bdc-grey-200 start-date"
+                                                               placeholder="Escolha data"
+                                                               data-provide="datepicker" ref={input => this.EmpBdy = input}/>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div className="col-md-6 mb-3">
+
+                                                <label className="fw-500" htmlFor="validationCustom02">Cargo</label>
+                                                <input type="text" className="form-control" id="validationCustom14"
+                                                       placeholder="Cargo" required ref={input => this.EmpPos = input}/>
+                                            </div>
+                                        </div>
+                                        <div className="row">
+                                            <div className="col-md-1 mb-3">
+
+                                                <label className="fw-500" htmlFor="validationCustom01">DDD</label>
+                                                <input type="number" className="form-control"
+                                                       id="validationCustom10"
+                                                       placeholder="DDD" required ref={input => this.Cf1Aco = input}/>
+                                            </div>
+                                            <div className="col-md-5 mb-3">
+
+                                                <label className="fw-500"
+                                                       htmlFor="validationCustom01">Telefone</label>
+                                                <input type="number" className="form-control"
+                                                       id="validationCustom11"
+                                                       placeholder="Telefone" ref={input => this.Cf1Num = input} required/>
+                                            </div>
+                                            <div className="col-md-6 mb-3">
+
+                                                <label className="fw-500"
+                                                       htmlFor="validationCustom02">E-mail</label>
+                                                <input type="email" className="form-control" id="validationCustom09"
+                                                       placeholder="exemplo@endereço.com.br" ref={input => this.EmpEma = input} required/>
+                                            </div>
+                                        </div>
 
 
-                                        <button className="btn cur-p btn-success m-b-10 m-l-5" type="submit">Salvar
-                                        </button>
+                                        <div className="row">
+                                            <div className="col-md-6 mb-3">
 
-                                    </div>
-                                </form>
+                                                <label className="fw-500"
+                                                       htmlFor="validationCustom06">Endereço</label>
+                                                <input type="text" className="form-control" id="validationCustom06"
+                                                       placeholder="Endereço" ref={input => this.AddStr = input} required/>
+                                            </div>
+                                            <div className="col-md-6 mb-3">
+                                                <label className="fw-500"
+                                                       htmlFor="validationCustom07">Complemento</label>
 
+                                                <input type="text" className="form-control" id="validationCustom07"
+                                                       placeholder="Complemento" ref={input => this.AddCom = input}/>
+                                                <div className="invalid-feedback"> Please provide last name.</div>
+                                            </div>
+                                        </div>
+                                        <div className="row">
+                                            <div className="col-md-6 mb-3">
+                                                <label className="fw-500"
+                                                       htmlFor="validationCustom03">Cidade</label>
 
+                                                <input type="text" className="form-control" id="validationCustom03"
+                                                       placeholder="Cidade" ref={input => this.AddCit = input} required/>
+
+                                            </div>
+                                            <div className="col-md-3 mb-3">
+                                                <label className="fw-500"
+                                                       htmlFor="validationCustom04">Estado</label>
+
+                                                <input type="text" className="form-control" id="validationCustom04"
+                                                       placeholder="Estado"  ref={input => this.AddSta = input} required/>
+                                                <div className="invalid-feedback">Insira estado válido.</div>
+                                            </div>
+                                            <div className="col-md-3 mb-3">
+                                                <label htmlFor="validationCustom05">CEP</label>
+
+                                                <input type="text" className="form-control" id="validationCustom05"
+                                                       placeholder="CEP" ref={input => this.AddZip = input} required/>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>
                             </div>
+
                         </div>
+
                     </div>
 
+                </div>
+
+                <div className="text-right col-md-12 mb-lg-5">
+                    <Link to="/empList" className="btn cur-p btn-info m-b-1 m-lg-2">Cancelar</Link>
+
+
+                    <button className="btn cur-p btn-success m-b-1 m-lg-2" type="submit">Salvar </button>
 
                 </div>
             </div>
+
 
         );
     }

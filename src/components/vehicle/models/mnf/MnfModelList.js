@@ -1,23 +1,10 @@
-// Importando o React
 import React ,{Component} from "react";
-
-import ApiProvider from '../../../../gearUtils/util'
-
 import  MnfPrev from "./mnfPrev";
 import {Link} from "react-router-dom";
+import {fetchApi} from "../../../../gearUtils/fetch/fetch";
 
 
-const token = localStorage.getItem('auth-token');
 
-const requestInfo = {
-
-    method: 'GET',
-
-    headers: new Headers({
-
-        'Authorization': token,
-    })
-};
 
 export default class MnfModelList extends Component {
 
@@ -38,12 +25,10 @@ export default class MnfModelList extends Component {
 
 
     search = query => {
-        const url = ApiProvider.Add +`/auth/mnf/search?q=${query}`;
         const token = {};
         this.token = token;
+fetchApi(`/auth/mnf/search?q=${query}`, "GET")
 
-        fetch(url, requestInfo)
-            .then(results => results.json())
             .then(data => {
                 if (this.token === token) {
                     this.setState({ mnf: data });
@@ -70,10 +55,8 @@ export default class MnfModelList extends Component {
                         </ol>
                     </div>
                 </div>
-                <div className="container-fluid">
-                    <div className="row">
-                        <div className="col-md-12">
-                            <div className="bgc-white bd bdrs-3 p-20 mB-20">
+                <div className="col-md-12">
+                    <div className="col-lg-12  ">
                                 <div className="card ">
                                     <div className="card-body">
 
@@ -122,10 +105,7 @@ export default class MnfModelList extends Component {
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
             </div>
-
         )
     }
 }

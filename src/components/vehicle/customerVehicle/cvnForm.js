@@ -3,7 +3,7 @@ import React, {Component} from "react";
 import {Link} from "react-router-dom";
 import Select from "react-select";
 
-import ApiProvider from "../../../gearUtils/util";
+import ApiProvider from "../../../gearUtils/apiMsc";
 import history from "../../history";
 
 
@@ -147,134 +147,131 @@ export default class VehiCusForm extends Component {
                     </div>
                 </div>
 
-                <div className="container-fluid">
+                <div className="col-md-12">
+                    <div className="col-lg-12  ">
 
-                    <form  id="needs-validation" onSubmit={this.send.bind(this)} >
-
-                        <div className="masonry-item col-md-9">
-                            <div className="bgc-white p-20 bd">
-                                <div className="mT-30">
-                                    <div className="card ">
-                                        <div className="card-body">
-                                            <div className="card-title">
-                                                <h4>Dados do Cliente </h4>
-
-                                            </div>
-                                            <div className="row">
-                                                <div className="col-md-6 mb-md-5 ">
-                                                    <Select
-                                                        name="option"
-                                                        options={options}
-                                                        onChange={this.handleOnchange}
-
-                                                    />
-                                                </div>
-                                            </div>
-
-                                            <div className="row">
-                                                <div className="col-md-3 mb-3">
-
-                                                    <label className="fw-500">Nome</label>
-
-                                                    <p className="form-control-static">{this.state.customer.CusNam} </p>
-
-                                                </div>
+                        <form  id="needs-validation" onSubmit={this.send.bind(this)} >
 
 
-                                                <div className="col-md-3 mb-3">
+                            <div className="card ">
+                                <div className="card-body">
+                                    <div className="card-title">
+                                        <h4>Dados do Cliente </h4>
 
-                                                    <label className="fw-500">CPF/CNPJ</label>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col-md-6 mb-md-5 ">
+                                            <Select
+                                                name="option"
+                                                options={options}
+                                                onChange={this.handleOnchange}
 
-                                                    <p className="form-control-static"> {this.state.customer.CusSec}</p>
-
-                                                </div>
-                                                <div className="col-md-3 mb-3">
-
-                                                    <label className="fw-500">E-mail</label>
-
-                                                    <p className="form-control-static">{this.state.customer.CusEma} </p>
-
-                                                </div>
-                                                <div className="col-md-3 mb-3">
-
-                                                    <label className="fw-500">Telefone</label>
-
-                                                    <p className="form-control-static"> {this.state.customer.Cf1Num}</p>
-
-                                                </div>
-
-
-                                            </div>
+                                            />
                                         </div>
                                     </div>
-
-
-                                    {this.state.isSelected ? <App1  callBack={this.cvnCallback} /> : null}
-
-
-                                    {this.state.isSelected ?
-                                        <div className="card ">
-                                            <div className="card-body">
-                                                <div className="card-title">
-                                                    <h4>Dados do veiculo </h4>
-
-                                                </div>
 
                                     <div className="row">
-                                        <div className="col-md-6 mb-3">
+                                        <div className="col-md-3 mb-3">
 
-                                            <label className="fw-500" htmlFor="validationCustom01">Placa</label>
-                                            <input type="text" className="form-control" id="validationCustom10"
-                                                   placeholder="Placa" ref={input => this.CvnPlt = input} required/>
-                                        </div>
-                                        <div className="col-md-6 mb-3">
+                                            <label className="fw-500">Nome</label>
 
-                                            <label className="fw-500" htmlFor="validationCustom01">Chassis</label>
-                                            <input type="text" className="form-control" id="validationCustom10"
-                                                   placeholder="Chassis" ref={input => this.CvnCch = input} required/>
+                                            <p className="form-control-static">{this.state.customer.CusNam} </p>
+
                                         </div>
+
+
+                                        <div className="col-md-3 mb-3">
+
+                                            <label className="fw-500">CPF/CNPJ</label>
+
+                                            <p className="form-control-static"> {this.state.customer.CusSec}</p>
+
+                                        </div>
+                                        <div className="col-md-3 mb-3">
+
+                                            <label className="fw-500">E-mail</label>
+
+                                            <p className="form-control-static">{this.state.customer.CusEma} </p>
+
+                                        </div>
+                                        <div className="col-md-3 mb-3">
+
+                                            <label className="fw-500">Telefone</label>
+
+                                            <p className="form-control-static"> {this.state.customer.Cf1Num}</p>
+
+                                        </div>
+
+
                                     </div>
-                                                <div className="row">
-                                                <div className="col-md-6 mb-3">
-                                                    <div>
-                                                        <label className="fw-500 text-center"
-                                                               htmlFor="validationCustom01">Combustível</label>
-                                                    </div>
-
-                                                    <div className="btn-group text-center">
-                                                        <div>
-                                                            <select id="question_type"
-                                                                    className="btn btn-light dropdown-toggle" ref={input => this.CvnFtp = input}>
-                                                                <option name="fisica">Gasolina</option>
-                                                                <option name="fisica">Etanol</option>
-                                                                <option name="juricida">Diesel</option>
-                                                                <option name="juricida">Flex</option>
-                                                            </select>
-                                                            <script>
-                                                                alert($("#question_type option:selected").attr('name'));
-                                                            </script>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                    <div className="col-md-3 mb-3">
-
-                                                        <label className="fw-500" htmlFor="validationCustom01">Ano Fabricação</label>
-                                                        <input type="number" className="form-control" id="validationCustom10"
-                                                               placeholder="Placa" ref={input => this.CvnFby = input} required/>
-                                                    </div>
-                                                    <div className="col-md-3 mb-3">
-
-                                                        <label className="fw-500" htmlFor="validationCustom01">Ano Modelo</label>
-                                                        <input type="number" className="form-control" id="validationCustom10"
-                                                               placeholder="Placa" ref={input => this.CvnMdy = input} required/>
-                                                    </div>
-                                            </div>
-                                        </div>
-                                        </div>
-                                        : null}
-
                                 </div>
                             </div>
+
+
+                            {this.state.isSelected ? <App1  callBack={this.cvnCallback} /> : null}
+
+
+                            {this.state.isSelected ?
+                                <div className="card ">
+                                    <div className="card-body">
+                                        <div className="card-title">
+                                            <h4>Dados do veiculo </h4>
+
+                                        </div>
+
+                                        <div className="row">
+                                            <div className="col-md-6 mb-3">
+
+                                                <label className="fw-500" htmlFor="validationCustom01">Placa</label>
+                                                <input type="text" className="form-control" id="validationCustom10"
+                                                       placeholder="Placa" ref={input => this.CvnPlt = input} required/>
+                                            </div>
+                                            <div className="col-md-6 mb-3">
+
+                                                <label className="fw-500" htmlFor="validationCustom01">Chassis</label>
+                                                <input type="text" className="form-control" id="validationCustom10"
+                                                       placeholder="Chassis" ref={input => this.CvnCch = input} required/>
+                                            </div>
+                                        </div>
+                                        <div className="row">
+                                            <div className="col-md-6 mb-3">
+                                                <div>
+                                                    <label className="fw-500 text-center"
+                                                           htmlFor="validationCustom01">Combustível</label>
+                                                </div>
+
+                                                <div className="btn-group text-center">
+                                                    <div>
+                                                        <select id="question_type"
+                                                                className="btn btn-light dropdown-toggle" ref={input => this.CvnFtp = input}>
+                                                            <option name="fisica">Gasolina</option>
+                                                            <option name="fisica">Etanol</option>
+                                                            <option name="juricida">Diesel</option>
+                                                            <option name="juricida">Flex</option>
+                                                        </select>
+                                                        <script>
+                                                            alert($("#question_type option:selected").attr('name'));
+                                                        </script>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="col-md-3 mb-3">
+
+                                                <label className="fw-500" htmlFor="validationCustom01">Ano Fabricação</label>
+                                                <input type="number" className="form-control" id="validationCustom10"
+                                                       placeholder="Placa" ref={input => this.CvnFby = input} required/>
+                                            </div>
+                                            <div className="col-md-3 mb-3">
+
+                                                <label className="fw-500" htmlFor="validationCustom01">Ano Modelo</label>
+                                                <input type="number" className="form-control" id="validationCustom10"
+                                                       placeholder="Placa" ref={input => this.CvnMdy = input} required/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                : null}
+
 
 
                             <div className="text-right ">
@@ -285,14 +282,13 @@ export default class VehiCusForm extends Component {
                                 <button className="btn cur-p btn-success m-b-10 m-l-5" type="submit">Salvar</button>
 
                             </div>
+                        </form>
 
-
-
-                        </div>
-                    </form>
-
+                    </div>
                 </div>
+
             </div>
+
 
 
 
@@ -367,16 +363,16 @@ class App1 extends React.Component {
 
                         </div>
                         {this.state.isSelect ?
-                        <div className="col-md-6 mb-md-5 ">
-                            <label className="fw-500">Modelo</label>
-                            <div className="App">
-                                <Select name="options2"
-                                        options={options2}
-                                        onChange={this.handleSelectChange}
-                                />
-                            </div>
+                            <div className="col-md-6 mb-md-5 ">
+                                <label className="fw-500">Modelo</label>
+                                <div className="App">
+                                    <Select name="options2"
+                                            options={options2}
+                                            onChange={this.handleSelectChange}
+                                    />
+                                </div>
 
-                        </div>
+                            </div>
                             : null}
                     </div>
                 </div>
